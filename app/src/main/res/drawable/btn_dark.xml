@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón oscuro con bisel: brillo superior, cuerpo grafito y sombra inferior. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="120">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#2E3640" />
+                    <corners android:radius="9dp" />
+                </shape>
+            </item>
+            <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="2dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:endColor="#2A323C" android:startColor="#1C2229" />
+                    <corners android:radius="8dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <!-- sombra -->
+            <item android:top="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#88000000" />
+                    <corners android:radius="9dp" />
+                </shape>
+            </item>
+            <!-- bisel claro -->
+            <item android:bottom="3dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:endColor="#1A1E24" android:startColor="#3C4550" />
+                    <corners android:radius="9dp" />
+                </shape>
+            </item>
+            <!-- cuerpo -->
+            <item android:bottom="4dp" android:left="1dp" android:right="1dp" android:top="1dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:endColor="#14171C" android:startColor="#252B33" />
+                    <corners android:radius="8dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

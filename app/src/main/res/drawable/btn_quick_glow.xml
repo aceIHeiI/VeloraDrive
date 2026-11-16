@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Acento de los botones: línea fina a la izquierda (tenue en reposo, encendida al tocar) y un
+    contorno suave al pulsar. Blanco: se tiñe con el color de cabina.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="180">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#1AFFFFFF" />
+                    <stroke android:width="1dp" android:color="#99FFFFFF" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+            <item android:bottom="12dp" android:gravity="start|fill_vertical" android:left="3dp" android:top="12dp" android:width="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFFFFFFF" />
+                    <corners android:radius="2dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:bottom="14dp" android:gravity="start|fill_vertical" android:left="3dp" android:top="14dp" android:width="2.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#66FFFFFF" />
+                    <corners android:radius="2dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

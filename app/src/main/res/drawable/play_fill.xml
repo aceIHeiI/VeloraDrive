@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Núcleo del botón Play: esfera azul con brillo (fijo). El aro neón va encima (btn_play_ring). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp">
+        <shape android:shape="oval">
+            <gradient android:centerColor="#123A5A" android:centerY="0.35" android:endColor="#0A1C2C" android:gradientRadius="50%p" android:startColor="#2A6E9E" android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

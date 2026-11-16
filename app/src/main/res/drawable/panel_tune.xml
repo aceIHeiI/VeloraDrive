@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Panel de audio con relieve de vidrio; abajo a la derecha sigue la curva del marco. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#99000000" />
+            <corners android:bottomLeftRadius="11dp" android:bottomRightRadius="21dp" android:topLeftRadius="11dp" android:topRightRadius="11dp" />
+        </shape>
+    </item>
+    <item android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:centerColor="#1A2129" android:endColor="#10141A" android:startColor="#424E5B" />
+            <corners android:bottomLeftRadius="11dp" android:bottomRightRadius="21dp" android:topLeftRadius="11dp" android:topRightRadius="11dp" />
+        </shape>
+    </item>
+    <item android:bottom="4dp" android:left="1dp" android:right="1dp" android:top="1.5dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:centerColor="#141A21" android:endColor="#0A0D11" android:startColor="#1F2730" />
+            <corners android:bottomLeftRadius="10dp" android:bottomRightRadius="20dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+        </shape>
+    </item>
+</layer-list>

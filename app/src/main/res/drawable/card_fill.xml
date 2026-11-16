@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Relleno de tarjeta: azul profundo con brillo arriba (fijo, no se tiñe). El borde neón va en card_glow. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#16293C" android:centerColor="#0D1A28" android:endColor="#0A121C" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <item android:bottom="40dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#14FFFFFF" android:endColor="#00FFFFFF" />
+            <corners android:topLeftRadius="20dp" android:topRightRadius="20dp" />
+        </shape>
+    </item>
+</layer-list>

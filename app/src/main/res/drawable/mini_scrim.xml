@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Degradado estático sobre la portada (sin desenfoque): oscuro abajo para leer el texto, y un
+     poco arriba para los botones. Barato para estéreos sencillos. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="90" android:startColor="#FA05080B" android:centerColor="#C705080B" android:centerY="0.42" android:endColor="#1405080B" />
+        </shape>
+    </item>
+    <item android:gravity="top" android:height="96dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#B305080B" android:endColor="#0005080B" />
+        </shape>
+    </item>
+</layer-list>

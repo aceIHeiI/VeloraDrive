@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Forma de recorte del mapa: esquinas de 16 dp (la de arriba a la derecha sigue la curva del marco). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#1A1F26" />
+    <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" android:topLeftRadius="16dp" android:topRightRadius="22dp" />
+</shape>

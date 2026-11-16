@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Botón de la columna izquierda con relieve de vidrio oscuro: sombra abajo, filo de luz arriba y
+    cuerpo con degradado. Sin borde neón propio (el acento lo pone btn_quick_glow).
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="120">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#3A4654" />
+                    <corners android:radius="11dp" />
+                </shape>
+            </item>
+            <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="2dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:endColor="#243039" android:startColor="#2E3B48" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <!-- sombra proyectada -->
+            <item android:top="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#99000000" />
+                    <corners android:radius="11dp" />
+                </shape>
+            </item>
+            <!-- filo de luz superior -->
+            <item android:bottom="3dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:centerColor="#1E252E" android:endColor="#151A20" android:startColor="#4A5766" />
+                    <corners android:radius="11dp" />
+                </shape>
+            </item>
+            <!-- cuerpo de vidrio -->
+            <item android:bottom="4dp" android:left="1dp" android:right="1dp" android:top="1.5dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:centerColor="#1A2029" android:endColor="#10141A" android:startColor="#262E39" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+            <!-- reflejo en la mitad superior -->
+            <item android:bottom="26dp" android:left="2dp" android:right="2dp" android:top="2dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:endColor="#00FFFFFF" android:startColor="#14FFFFFF" />
+                    <corners android:topLeftRadius="9dp" android:topRightRadius="9dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

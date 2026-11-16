@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paneles de la barra superior: metal oscuro biselado con filo de luz arriba (fijo). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="3dp">
+        <shape android:shape="rectangle"><solid android:color="#AA000000" /><corners android:radius="18dp" /></shape>
+    </item>
+    <item android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#25313E" android:endColor="#10171F" />
+            <stroke android:width="1.5dp" android:color="#344455" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item android:bottom="3dp" android:gravity="top" android:left="16dp" android:right="16dp" android:top="1.5dp">
+        <shape android:shape="rectangle"><size android:height="1dp" /><solid android:color="#40FFFFFF" /></shape>
+    </item>
+</layer-list>

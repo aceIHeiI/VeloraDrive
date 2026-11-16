@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tarjeta del diseño "reproductor": halo suave + línea fina, relleno muy tenue.
+    Blanco: se tiñe con el color de cabina (backgroundTintList).
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#12FFFFFF" />
+            <stroke android:width="4dp" android:color="#1FFFFFFF" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" />
+            <stroke android:width="1.4dp" android:color="#B3FFFFFF" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</layer-list>

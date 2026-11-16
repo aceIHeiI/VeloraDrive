@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Disco de vinilo estilizado (carátula por defecto). El centro se tiñe con el tema desde el código. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <path android:fillColor="#3A434D" android:pathData="M0,10 Q0,0 10,0 H86 Q96,0 96,10 V86 Q96,96 86,96 H10 Q0,96 0,86 Z" />
+    <path android:pathData="M8,48 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:centerX="48" android:centerY="48" android:endColor="#050608" android:gradientRadius="40" android:startColor="#1E2228" android:type="radial" />
+        </aapt:attr>
+    </path>
+    <path android:fillColor="#00000000" android:pathData="M18,48 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 M24,48 a24,24 0 1,0 48,0 a24,24 0 1,0 -48,0" android:strokeColor="#2A3038" android:strokeWidth="0.8" />
+    <path android:fillColor="#40FFFFFF" android:pathData="M30,22 Q48,14 66,22 L60,30 Q48,25 36,30 Z" />
+    <path android:fillColor="#FF00E5FF" android:pathData="M36,48 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0 Z" />
+    <path android:fillColor="#0A0B0E" android:pathData="M45,48 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+</vector>

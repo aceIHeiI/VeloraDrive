@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portada sin canción: cuadro oscuro con nota musical tenue. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle"><gradient android:angle="270" android:startColor="#1B2B3B" android:endColor="#0E1824" /><corners android:radius="12dp" /></shape>
+    </item>
+    <item android:drawable="@drawable/ic_music_dim" android:gravity="center" android:width="52dp" android:height="52dp" />
+</layer-list>

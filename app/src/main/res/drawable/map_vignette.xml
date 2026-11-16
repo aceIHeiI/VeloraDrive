@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Velo sobre el mapa: bordes oscuros que se funden con el marco y un brillo de vidrio arriba. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerColor="#22070B14"
+                android:endColor="#CC070B14"
+                android:gradientRadius="70%p"
+                android:startColor="#00070B14"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item android:bottom="140dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:endColor="#00FFFFFF" android:startColor="#1EFFFFFF" />
+        </shape>
+    </item>
+    <item android:top="150dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="90" android:endColor="#00070B14" android:startColor="#B3070B14" />
+        </shape>
+    </item>
+</layer-list>

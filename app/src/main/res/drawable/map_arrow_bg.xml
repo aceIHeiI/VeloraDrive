@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Círculo de la flecha de posición en el mini mapa. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <gradient android:endColor="#003D8BFF" android:gradientRadius="50%p" android:startColor="#663D8BFF" android:type="radial" />
+        </shape>
+    </item>
+    <item android:bottom="5dp" android:left="5dp" android:right="5dp" android:top="5dp">
+        <shape android:shape="oval">
+            <solid android:color="#2962FF" />
+            <stroke android:width="1.5dp" android:color="#FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

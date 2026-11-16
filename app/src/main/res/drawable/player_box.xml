@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mini reproductor con relieve: filo de luz arriba, cuerpo con degradado y sombra; abajo a la izquierda sigue el marco. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#99000000" />
+            <corners android:bottomLeftRadius="21dp" android:bottomRightRadius="11dp" android:topLeftRadius="11dp" android:topRightRadius="11dp" />
+        </shape>
+    </item>
+    <item android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:centerColor="#1C232C" android:endColor="#12161C" android:startColor="#46525F" />
+            <corners android:bottomLeftRadius="21dp" android:bottomRightRadius="11dp" android:topLeftRadius="11dp" android:topRightRadius="11dp" />
+        </shape>
+    </item>
+    <item android:bottom="4dp" android:left="1dp" android:right="1dp" android:top="1.5dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:centerColor="#171D25" android:endColor="#0C0F14" android:startColor="#232B35" />
+            <corners android:bottomLeftRadius="20dp" android:bottomRightRadius="10dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+        </shape>
+    </item>
+</layer-list>

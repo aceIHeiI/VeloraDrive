@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Líneas de acento del centro: bisel superior del velocímetro y separador bajo la telemetría.
+    Las columnas y la barra inferior tienen su propio marco. Blanco: se tiñe con el color de cabina.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1024dp"
+    android:height="600dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="600">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M256,22 Q512,-6 768,22 M250,222 Q512,234 774,222"
+        android:strokeColor="#38FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="7" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M256,22 Q512,-6 768,22 M250,222 Q512,234 774,222"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="2" />
+</vector>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tarjeta OBD2 en gris (sin conexión): metal apagado con relieve. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="4dp">
+        <shape android:shape="rectangle"><solid android:color="#B3000000" /><corners android:radius="18dp" /></shape>
+    </item>
+    <item android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#3A3D41" android:endColor="#25282B" />
+            <stroke android:width="1.5dp" android:color="#4A4E53" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+</layer-list>

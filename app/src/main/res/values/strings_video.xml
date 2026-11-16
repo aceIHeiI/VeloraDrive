@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Biblioteca -->
+    <string name="video_title">VIDEOS</string>
+    <string name="video_search_hint">Buscar en YouTube…</string>
+    <string name="video_tab_downloaded">DESCARGADOS</string>
+    <string name="video_tab_favorites">FAVORITOS</string>
+    <string name="video_tab_playlists">LISTAS</string>
+    <string name="video_tab_history">HISTORIAL</string>
+    <string name="video_tab_now">LO QUE SUENA</string>
+    <string name="video_tab_back">LISTAS ›</string>
+    <string name="video_downloaded">Descargado</string>
+    <string name="video_online">En línea</string>
+    <string name="video_playlist">Lista</string>
+    <plurals name="video_playlist_count">
+        <item quantity="one">%d video</item>
+        <item quantity="other">%d videos</item>
+    </plurals>
+    <string name="video_phone_default">Celular</string>
+    <string name="video_loading">Cargando…</string>
+    <string name="video_empty">No hay videos aquí</string>
+    <string name="video_empty_search">Sin resultados</string>
+    <string name="video_search_title">Resultados: %s</string>
+    <string name="video_error_load">No se pudo cargar. Revisa la conexión con el celular.</string>
+    <string name="video_error_disconnected">El celular no está conectado.</string>
+    <string name="video_retry">Reintentar</string>
+
+    <!-- Reproductor -->
+    <string name="video_from">Desde %1$s · %2$s</string>
+    <string name="video_quality_chip">Calidad: %s</string>
+    <string name="video_quality_auto">Automática</string>
+    <string name="video_quality_auto_short">Auto (%dp)</string>
+    <string name="video_quality_auto_plain">Auto</string>
+    <string name="video_height">%dp</string>
+    <string name="video_audio_only">Solo audio</string>
+    <string name="video_mini">Mini</string>
+    <string name="video_audio_only_label">Solo audio: la imagen está apagada</string>
+    <string name="video_hidden_moving">Video oculto en movimiento · sigue el audio</string>
+    <string name="video_error_play">No se pudo reproducir el video.</string>
+    <string name="video_error_no_quality">Este estéreo no puede reproducir ninguna calidad de este video.</string>
+    <string name="video_no_pip">Este estéreo no permite la ventana mini</string>
+    <string name="video_rewind">Atrasar 10 s</string>
+    <string name="video_forward">Adelantar 10 s</string>
+    <string name="video_prev">Video anterior</string>
+    <string name="video_next">Video siguiente</string>
+    <string name="video_play_pause">Reproducir o pausar</string>
+
+    <!-- Aviso de seguridad (una sola vez) -->
+    <string name="video_warning_title">No veas videos mientras conduces</string>
+    <string name="video_warning_msg">El video es para pasajeros o con el coche detenido. El conductor es responsable de su manejo.</string>
+    <string name="video_warning_ok">Entendido</string>
+
+    <!-- Ajustes › Video -->
+    <string name="aj_video_auto_max">Calidad automática hasta</string>
+    <string name="aj_video_auto_max_desc">La calidad Automática no pasa de este tope</string>
+    <string name="aj_video_auto_max_no1080">Este estéreo no decodifica 1080p: queda en 720p</string>
+    <string name="aj_video_hide_moving">Ocultar video en movimiento</string>
+    <string name="aj_video_hide_moving_desc">Arriba de 10 km/h se oculta la imagen y sigue el audio (usa el GPS)</string>
+    <string name="aj_video_warning_reset">Volver a mostrar el aviso</string>
+    <string name="aj_video_warning_reset_desc">El aviso de seguridad sale otra vez antes del próximo video</string>
+    <string name="aj_video_warning_reset_done">El aviso volverá a salir</string>
+</resources>

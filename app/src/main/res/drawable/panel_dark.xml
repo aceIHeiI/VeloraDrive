@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Panel hundido: borde oscuro, cuerpo grafito y filo superior claro (relieve). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#2A313A" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:endColor="#0D0F13" android:startColor="#161A20" />
+            <corners android:radius="11dp" />
+        </shape>
+    </item>
+</layer-list>

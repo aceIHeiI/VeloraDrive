@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sub-panel inferior derecho del cluster (espejo). Blanco: se tiñe. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="44dp"
+    android:viewportWidth="160"
+    android:viewportHeight="44">
+    <path android:fillColor="#1AFFFFFF" android:pathData="M150,2 H34 L2,42 H158 V10 Q158,2 150,2 Z" />
+    <path android:fillColor="#00000000" android:pathData="M158,10 Q158,2 150,2 H34 L2,42" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.6" />
+</vector>

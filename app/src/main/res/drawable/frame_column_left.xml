@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Marco neón que encierra toda la columna izquierda: esquinas muy redondeadas a la izquierda.
+    Blanco: se tiñe con el color de cabina. Halo + línea, sin relleno (el fondo grafito se ve detrás).
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0DFFFFFF" />
+            <stroke android:width="5dp" android:color="#26FFFFFF" />
+            <corners
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="14dp"
+                android:topLeftRadius="30dp"
+                android:topRightRadius="14dp" />
+        </shape>
+    </item>
+    <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" />
+            <stroke android:width="1.6dp" android:color="#FFFFFFFF" />
+            <corners
+                android:bottomLeftRadius="28dp"
+                android:bottomRightRadius="12dp"
+                android:topLeftRadius="28dp"
+                android:topRightRadius="12dp" />
+        </shape>
+    </item>
+</layer-list>

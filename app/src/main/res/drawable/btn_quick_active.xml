@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Botón de modo activo (VIDEO, MÚSICA, RADIO): velo del color de cabina (~18 %), borde encendido
+    y la línea izquierda a toda intensidad. Blanco: se tiñe con el color de cabina.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#2EFFFFFF" />
+            <stroke android:width="1.5dp" android:color="#E6FFFFFF" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item android:bottom="12dp" android:gravity="start|fill_vertical" android:left="3dp" android:top="12dp" android:width="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFFFF" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+</layer-list>

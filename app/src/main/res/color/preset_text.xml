@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Texto del preset: verde el activo, gris claro los demás. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#3DF28F" android:state_activated="true" />
+    <item android:color="#C9D3DC" />
+</selector>

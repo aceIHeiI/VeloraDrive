@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placa central de la marca: trapecio metálico (fijo). El filo neón va en brand_glow. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="80dp"
+    android:viewportWidth="400"
+    android:viewportHeight="80">
+    <path android:pathData="M0,0 L400,0 L360,72 Q356,78 348,78 L52,78 Q44,78 40,72 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerColor="#16283A"
+                android:endColor="#1C3A52"
+                android:endX="0"
+                android:endY="78"
+                android:startColor="#0B141E"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear" />
+        </aapt:attr>
+    </path>
+</vector>

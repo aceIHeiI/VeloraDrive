@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fondo de fibra de carbono con viñeta: el centro un poco más claro, las orillas se oscurecen. Estático. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/carbon_tile"
+            android:tileMode="repeat" />
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerX="0.5"
+                android:centerY="0.45"
+                android:endColor="#8C000000"
+                android:gradientRadius="75%p"
+                android:startColor="#00000000"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

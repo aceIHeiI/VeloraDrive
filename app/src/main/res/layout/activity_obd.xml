@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pantalla OBD2 (diseño 1024x600 dp): barra superior, 4 medidores de arco y 5 tarjetas chicas.
+    Los bordes blancos de las tarjetas se tiñen en código con el color de cabina o del estado.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="16dp">
+
+    <!-- ===================== Barra superior ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/obd_back_btn"
+            android:contentDescription="@string/back"
+            android:padding="11dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:letterSpacing="0.04"
+            android:text="@string/obd_screen_title"
+            android:textColor="@color/text"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/statusPill"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/obd_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <View
+                android:id="@+id/statusDot"
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:background="@drawable/obd_dot" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/obd_pill_waiting"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/obd_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_obd_sync"
+                app:tint="@color/text_dim" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/obd_refresh"
+                android:textColor="@color/text_dim"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/obd_pill"
+            android:baselineAligned="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="18dp">
+
+            <TextView
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/text"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/clockAmPm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===================== Medidores ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1.2"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/boxRpm"
+            style="@style/ObdGaugeBox">
+
+            <com.iheii.veloradrive.GaugeView
+                android:id="@+id/gaugeRpm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="18dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/boxSpeed"
+            style="@style/ObdGaugeBox">
+
+            <com.iheii.veloradrive.GaugeView
+                android:id="@+id/gaugeSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="18dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/boxCoolant"
+            style="@style/ObdGaugeBox">
+
+            <com.iheii.veloradrive.GaugeView
+                android:id="@+id/gaugeCoolant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="18dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/boxVolts"
+            style="@style/ObdGaugeBox">
+
+            <com.iheii.veloradrive.GaugeView
+                android:id="@+id/gaugeVolts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="18dp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ===================== Tarjetas chicas ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/cardLoad"
+            layout="@layout/item_obd_stat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/cardThrottle"
+            layout="@layout/item_obd_stat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/cardIntake"
+            layout="@layout/item_obd_stat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/cardFuel"
+            layout="@layout/item_obd_stat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!-- Códigos de falla: tocar vuelve a leerlos (nunca se borran). -->
+        <LinearLayout
+            android:id="@+id/cardDtc"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/obd_panel_fill"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/obd_panel_stroke"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.1"
+                android:maxLines="1"
+                android:text="@string/obd_dtc"
+                android:textColor="#8A96A3"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/dtcIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_obd_check" />
+
+                <TextView
+                    android:id="@+id/dtcState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-condensed"
+                    android:maxLines="1"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dtcCodes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:fontFamily="monospace"
+                android:maxLines="2"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/obd_dtc_hint"
+                android:textColor="#8A96A3"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

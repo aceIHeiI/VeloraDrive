@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pantalla completa de Ajustes (SettingsActivity). -->
+<resources>
+    <string name="aj_title">AJUSTES</string>
+
+    <!-- Secciones -->
+    <string name="aj_sec_phone">Celular</string>
+    <string name="aj_sec_sound">Sonido</string>
+    <string name="aj_sec_screen">Pantalla</string>
+    <string name="aj_sec_buttons">Botones y apps</string>
+    <string name="aj_sec_obd">OBD2</string>
+    <string name="aj_sec_video">Video</string>
+    <string name="aj_sec_diag">Diagnóstico</string>
+
+    <!-- Comunes -->
+    <string name="aj_save">Guardar</string>
+    <string name="aj_not_set">Sin configurar</string>
+    <string name="aj_set">Configurada</string>
+    <string name="aj_on">Encendido</string>
+    <string name="aj_off">Apagado</string>
+
+    <!-- Celular -->
+    <string name="aj_status_connected">Conectado a %1$s</string>
+    <string name="aj_status_phone">tu celular</string>
+    <string name="aj_status_sub">OfflineTune Car · %1$s</string>
+    <string name="aj_status_connecting">Conectando con el celular…</string>
+    <string name="aj_status_no_token">Falta el código de 4 dígitos</string>
+    <string name="aj_status_bad_token">El código no coincide</string>
+    <string name="aj_status_no_wifi">Sin red WiFi</string>
+    <string name="aj_status_disconnected">Celular no conectado</string>
+    <string name="aj_status_hint">Activa el hotspot del celular y abre OfflineTune Car</string>
+    <string name="aj_details">Ver detalles</string>
+    <string name="aj_code">Código de 4 dígitos</string>
+    <string name="aj_code_desc">El que muestra OfflineTune Car en tu celular</string>
+    <string name="aj_ssid">Hotspot del celular</string>
+    <string name="aj_ssid_desc">Nombre de la red WiFi del celular</string>
+    <string name="aj_password">Contraseña del hotspot</string>
+    <string name="aj_host">IP manual</string>
+    <string name="aj_host_desc">Opcional, solo para diagnóstico. Vacío = automática</string>
+    <string name="aj_audio_fix_desc">Si el celular suena y el estéreo no, lo intenta abrir solo</string>
+    <string name="aj_overlay">Reproductor mini encima de Android Auto</string>
+    <string name="aj_overlay_desc">Al usar CAR SYNC</string>
+    <string name="aj_bt_wake_desc">Abre un momento la Música BT del estéreo para que el celular suene</string>
+    <string name="aj_bt_pick_desc">App actual: %1$s</string>
+    <string name="aj_phone_time">Hora del celular</string>
+    <string name="aj_phone_time_desc">Usa la hora y zona de tu celular en lugar de la del estéreo</string>
+
+    <!-- Sonido -->
+    <string name="aj_eq_app">App del ecualizador</string>
+    <string name="aj_eq_preset">Ecualizador</string>
+    <string name="aj_eq_preset_desc">Mismo ajuste que las pastillas de la pantalla principal</string>
+    <string name="aj_eq_rock">Rock</string>
+    <string name="aj_eq_pop">Pop</string>
+    <string name="aj_eq_flat">Normal</string>
+    <string name="aj_eq_unsupported">Este estéreo no permite cambiar el ecualizador</string>
+    <string name="aj_bass">Refuerzo de bajos</string>
+    <string name="aj_bass_desc">Sube los bajos de todo el audio del estéreo</string>
+    <string name="aj_bass_unsupported">Este estéreo no permite el refuerzo de bajos</string>
+    <string name="aj_music_app">App de música</string>
+
+    <!-- Pantalla -->
+    <string name="aj_night">Modo noche</string>
+    <string name="aj_night_desc">Baja el brillo de Velora (no cambia el brillo del sistema)</string>
+    <string name="aj_idle_anim">Animar las montañas de sonido</string>
+    <string name="aj_idle_minutes">Screensaver por inactividad</string>
+    <string name="aj_device">Nombre del celular</string>
+    <string name="aj_brand">Marca del coche</string>
+    <string name="aj_brand_none">Sin marca (VELORA)</string>
+    <string name="aj_model">Modelo del coche</string>
+    <string name="aj_pages">Ventanitas del recuadro derecho</string>
+    <string name="aj_pages_desc">Marca las que quieres ver y ordénalas con las flechas</string>
+    <string name="aj_pages_min">Deja al menos una ventanita</string>
+    <string name="aj_page_trip">Este viaje</string>
+    <string name="aj_page_fuel">Desde la gasolina</string>
+    <string name="aj_page_total">Total</string>
+    <string name="aj_page_phone">Mi celular</string>
+    <string name="aj_move_up">Subir</string>
+    <string name="aj_move_down">Bajar</string>
+
+    <!-- Botones y apps -->
+    <string name="aj_buttons_hint">También puedes mantener presionado un botón 1 segundo en la pantalla principal</string>
+    <string name="aj_slot_custom">Elegida: %1$s</string>
+    <string name="aj_slot_default">Predeterminado: %1$s</string>
+    <string name="aj_slot_ask">Predeterminado: se elige al primer toque</string>
+
+    <!-- OBD2 -->
+    <string name="aj_obd">Habilitar OBD2</string>
+    <string name="aj_obd_device">Escáner ELM327</string>
+    <string name="aj_obd_device_none">Ninguno elegido. Empareja el ELM327 en Ajustes de Android</string>
+    <string name="aj_obd_demo">Modo demo</string>
+    <string name="aj_obd_demo_desc">Datos de prueba para ver los medidores sin escáner</string>
+
+    <!-- Video -->
+
+    <!-- Diagnóstico -->
+    <string name="aj_diag_live">En vivo (se actualiza cada segundo)</string>
+    <string name="aj_export">Exportar diagnóstico</string>
+    <string name="aj_export_desc">Crea un archivo de texto para enviarlo. No incluye el código ni la contraseña</string>
+    <string name="aj_export_failed">No se pudo crear el archivo</string>
+    <string name="aj_export_chooser">Enviar diagnóstico</string>
+</resources>

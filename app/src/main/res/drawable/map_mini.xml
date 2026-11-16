@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mapa vectorial ilustrativo (manzanas, calles y parques). No es un mapa real: al tocarlo se abre la app de navegación. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path android:fillColor="#1A1F26" android:pathData="M0,0 H200 V200 H0 Z" />
+    <!-- manzanas -->
+    <path android:fillColor="#2A313B" android:pathData="M6,6 H44 V40 H6 Z M52,6 H92 V28 H52 Z M100,6 H128 V40 H100 Z M136,6 H194 V30 H136 Z
+        M6,48 H30 V92 H6 Z M38,48 H92 V70 H38 Z M38,78 H92 V92 H38 Z M136,38 H164 V80 H136 Z M172,38 H194 V96 H172 Z
+        M6,100 H44 V140 H6 Z M52,100 H92 V122 H52 Z M100,104 H128 V150 H100 Z M136,88 H164 V132 H136 Z M172,104 H194 V150 H172 Z
+        M6,148 H44 V194 H6 Z M52,130 H92 V194 H52 Z M100,158 H128 V194 H100 Z M136,140 H194 V194 H136 Z" />
+    <!-- parques -->
+    <path android:fillColor="#1F4D3A" android:pathData="M100,48 H128 V96 H112 V72 H100 Z M172,158 H194 V194 H172 Z" />
+    <!-- avenida principal -->
+    <path android:fillColor="#00000000" android:pathData="M96,0 V200 M0,96 H200" android:strokeColor="#3E4855" android:strokeWidth="5" />
+    <!-- ruta -->
+    <path android:fillColor="#00000000" android:pathData="M96,200 V96 H132 V0" android:strokeColor="#3D8BFF" android:strokeLineJoin="round" android:strokeWidth="3" />
+</vector>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos de la pantalla principal (recuadro de info, presets, kilómetros). -->
+<resources>
+    <!-- Recuadro de info (arriba a la derecha) -->
+    <string name="info_prev">Anterior</string>
+    <string name="info_next">Siguiente</string>
+    <string name="info_trip_title">ESTE VIAJE</string>
+    <string name="info_fuel_title">DESDE LA CARGA</string>
+    <string name="info_total_title">TOTAL CON VELORA</string>
+    <string name="info_phone_title">MI CELULAR</string>
+    <string name="info_km">km</string>
+    <string name="info_hours">horas</string>
+    <string name="info_avg">km/h prom.</string>
+    <string name="info_km_driven">km recorridos</string>
+    <string name="info_hours_driving">horas manejando</string>
+    <string name="info_trip_foot">Empieza al encender el coche</string>
+    <string name="info_total_foot">Desde que instalaste Velora</string>
+    <string name="info_fuel_today">Cargaste hoy</string>
+    <string name="info_fuel_yesterday">Cargaste ayer</string>
+    <string name="info_fuel_days">Cargaste hace %d días</string>
+    <string name="info_fuel_never">Márcalo al cargar gasolina</string>
+    <string name="info_fuel_button">Cargué gasolina</string>
+    <string name="info_fuel_confirm">¿Reiniciar el conteo desde la gasolina?</string>
+    <string name="info_fuel_reset">Reiniciar</string>
+    <string name="info_no_gps">Sin permiso de ubicación: no se cuentan los km</string>
+    <string name="info_phone_connect">Conecta OfflineTune Car</string>
+    <string name="info_phone_net">%1$s · %2$s</string>
+    <string name="info_phone_data">Datos hoy: %s GB</string>
+    <string name="info_phone_charging">Cargando</string>
+    <string name="info_phone_charging_min">Cargando · %d min para 100%%</string>
+    <string name="info_phone_battery">%d%%</string>
+
+    <!-- Kilómetros en segundo plano (TripService) -->
+    <string name="trip_channel">Kilómetros</string>
+    <string name="trip_notification">Velora cuenta tus kilómetros</string>
+
+    <!-- Presets de audio -->
+    <string name="presets_box_title">PRESET DE AUDIO</string>
+    <string name="presets_box_hint">Toca para ver todos</string>
+    <string name="presets_dialog_title">PRESETS DE AUDIO</string>
+    <string name="preset_none">—</string>
+    <string name="preset_legacy_bass">BASS</string>
+    <string name="bass_title">BASS BOOST</string>
+    <string name="bass_on">ON</string>
+    <string name="bass_off">OFF</string>
+    <string name="eq_normal">NORMAL</string>
+    <string name="eq_normal_sub">sin cambios</string>
+    <string name="eq_pop">POP</string>
+    <string name="eq_rock">ROCK</string>
+    <string name="eq_hiphop">HIP HOP</string>
+    <string name="eq_dance">DANCE</string>
+    <string name="eq_jazz">JAZZ</string>
+    <string name="eq_classical">CLÁSICA</string>
+    <string name="eq_heavymetal">HEAVY METAL</string>
+    <string name="eq_folk">FOLK</string>
+    <string name="eq_flat">PLANO</string>
+    <string name="eq_active">✓ activo</string>
+    <string name="eq_stereo">Ecualizador del estéreo</string>
+    <string name="eq_phone">Los del celular</string>
+    <string name="eq_phone_toast">Con OfflineTune conectado, el sonido lo pone el celular: elige un preset aquí o ajusta el ecualizador en OfflineTune.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pestaña "CONEXIÓN MÓVIL DIRECTA" bajo el panel del celular. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="270" android:startColor="#2A3542" android:endColor="#18202A" />
+    <stroke android:width="1.5dp" android:color="#3E4E5E" />
+    <corners android:radius="14dp" />
+</shape>

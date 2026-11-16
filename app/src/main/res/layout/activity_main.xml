@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Velora Drive, pantalla "reproductor" (referencia exacta del diseño de Juan), 7" 1024x600.
+    Proporciones con guías en %: el mismo layout escala a 9" y 10" (MainActivity normaliza la
+    densidad a ~1024x600 dp). Nada fijo: nombre del celular y marca salen de Ajustes (DataStore).
+    Arriba: celular conectado · marca · hora, Wi-Fi, BT. Izquierda: APPS, VIDEO, RADIO FM, OBD2.
+    Centro: portada, título, artista, origen, onda, controles. Derecha: Navegación y presets.
+    Abajo: silencio, CAR SYNC / START, Ajustes y volumen. Nada táctil mide menos de 56 dp.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_carbon">
+
+    <!-- Guías: columnas 23 % | 52 % | 25 %; paneles de arriba hasta 11 %, contenido desde 16 % -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.235" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.76" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.115" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.165" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.895" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLeftBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.355" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gRightBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.645" />
+
+    <!-- ===================== BARRA SUPERIOR ===================== -->
+
+    <!-- Celular conectado: nombre guardado en Ajustes ("device_name") -->
+    <LinearLayout
+        android:id="@+id/topLeft"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/panel_top"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@id/gPanel"
+        app:layout_constraintEnd_toStartOf="@id/gLeftBrand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/phoneIcon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_phone_signal"
+            app:tint="#FF3B4A" />
+
+        <TextView
+            android:id="@+id/deviceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:text="Mi celular" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mobileTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:background="@drawable/tab_mobile"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="2dp"
+        android:text="@string/mobile_direct"
+        android:textColor="#B8C4CF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:translationY="-6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLeft" />
+
+    <!-- Placa central con la marca: texto dinámico ("car_brand"), nunca fijo -->
+    <FrameLayout
+        android:id="@+id/brandBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/brand_plate"
+        android:foreground="@drawable/brand_glow"
+        android:paddingBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@id/gTop"
+        app:layout_constraintEnd_toEndOf="@id/gRightBrand"
+        app:layout_constraintStart_toStartOf="@id/gLeftBrand"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintVertical_bias="0">
+
+        <!-- El emblema se conserva para Ajustes; en esta pantalla solo va la marca en letras -->
+        <com.iheii.veloradrive.BrandLogoView
+            android:id="@+id/brandLogo"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:contentDescription="@string/brand_desc"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/brandText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.1"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="#E6EEF4"
+            android:textSize="40sp"
+            tools:text="MARCA" />
+    </FrameLayout>
+
+    <!-- Hora grande + Wi-Fi y Bluetooth -->
+    <LinearLayout
+        android:id="@+id/topRight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/panel_top"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@id/gPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/gRightBrand"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="false"
+            android:textColor="#FFFFFF"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            tools:text="10:38" />
+
+        <TextView
+            android:id="@+id/clockAmPm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#C3CDD6"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="AM" />
+
+        <ImageView
+            android:id="@+id/wifiIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:contentDescription="Wi-Fi"
+            android:padding="7dp"
+            android:src="@drawable/ic_wifi" />
+
+        <ImageView
+            android:id="@+id/btIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Bluetooth"
+            android:padding="7dp"
+            android:src="@drawable/ic_bt" />
+    </LinearLayout>
+
+    <!-- ===================== IZQUIERDA: APPS, VIDEO, RADIO FM + OBD2 ===================== -->
+    <LinearLayout
+        android:id="@+id/leftColumn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/gBottom"
+        app:layout_constraintEnd_toStartOf="@id/gLeft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gTop">
+
+        <LinearLayout
+            android:id="@+id/quickList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical" />
+
+        <!--
+            OBD2: gris con "Esperando conexión..." mientras no hay lector; con lector (o demo) borde
+            verde y RPM / km/h / °C motor / V batería. Tocar abre la pantalla OBD2; sostener, Ajustes.
+        -->
+        <FrameLayout
+            android:id="@+id/obdCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/obd_card"
+            android:clickable="true"
+            android:contentDescription="@string/obd_open"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:id="@+id/obdIdle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/obdTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/obd2_title"
+                        android:textColor="#9AA1A8"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/obdIcon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_engine"
+                        app:tint="#8A9198" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/obdStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-condensed"
+                    android:maxLines="1"
+                    android:text="@string/obd_waiting"
+                    android:textColor="#9AA1A8"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/obdLive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/obd_dot"
+                        android:backgroundTint="#3DDC84" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/obd_card_name"
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/obdLiveState"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-condensed"
+                        android:letterSpacing="0.06"
+                        android:maxLines="1"
+                        android:text="@string/obd_card_connected"
+                        android:textColor="#3DDC84"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_obd_chevron"
+                        app:tint="#8A96A3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/obdRpm"
+                            style="@style/ObdCardValue" />
+
+                        <TextView
+                            style="@style/ObdCardUnit"
+                            android:text="@string/obd_unit_rpm" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/obdSpeed"
+                            style="@style/ObdCardValue" />
+
+                        <TextView
+                            style="@style/ObdCardUnit"
+                            android:text="@string/obd_unit_kmh" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/obdCoolant"
+                            style="@style/ObdCardValue" />
+
+                        <TextView
+                            style="@style/ObdCardUnit"
+                            android:text="@string/obd_unit_motor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/obdVolts"
+                            style="@style/ObdCardValue" />
+
+                        <TextView
+                            style="@style/ObdCardUnit"
+                            android:text="@string/obd_unit_battery" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ===================== CENTRO: reproductor ===================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mediaCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/card_fill"
+        android:foreground="@drawable/card_glow"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/gBottom"
+        app:layout_constraintEnd_toStartOf="@id/gRight"
+        app:layout_constraintStart_toEndOf="@id/gLeft"
+        app:layout_constraintTop_toBottomOf="@id/gTop">
+
+        <!-- Portada + título + artista + origen (todo del estado real de la canción) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mediaBox"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/artFrame"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/art_ring"
+                android:padding="9dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/mediaArt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/art_clip"
+                    android:contentDescription="@string/cover"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/art_empty" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/mediaTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:ellipsize="marquee"
+                android:fontFamily="sans-serif-condensed"
+                android:includeFontPadding="false"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:shadowColor="#66000000"
+                android:shadowDy="3"
+                android:shadowRadius="6"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/mediaStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/artFrame"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/mediaStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:textColor="#C3CDD6"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toTopOf="@id/mediaSource"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/artFrame"
+                app:layout_constraintTop_toBottomOf="@id/mediaTitle" />
+
+            <TextView
+                android:id="@+id/mediaSource"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:textColor="#9AA6B1"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/artFrame"
+                app:layout_constraintTop_toBottomOf="@id/mediaStatus" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Onda de audio grande, de lado a lado -->
+        <com.iheii.veloradrive.WaveLinesView
+            android:id="@+id/mountains"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="-16dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mediaBox" />
+
+        <!-- Aviso: el audio va por Bluetooth, no por WiFi -->
+        <TextView
+            android:id="@+id/btWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tab_mobile"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            android:text="@string/bt_warning"
+            android:textColor="#FFC24A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mountains" />
+
+        <!-- Progreso (solo muestra; no se toca para adelantar). Visible con canción del celular. -->
+        <TextView
+            android:id="@+id/mediaPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:minWidth="52dp"
+            android:text="@string/time_zero"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/mediaProgress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mediaProgress" />
+
+        <ProgressBar
+            android:id="@+id/mediaProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="8dp"
+            android:max="1000"
+            android:progressDrawable="@drawable/progress_track"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toStartOf="@id/mediaDur"
+            app:layout_constraintStart_toEndOf="@id/mediaPos" />
+
+        <TextView
+            android:id="@+id/mediaDur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="end"
+            android:minWidth="52dp"
+            android:text="@string/time_zero"
+            android:textColor="#C3CDD6"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/mediaProgress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mediaProgress" />
+
+        <!-- Controles grandes: ANTERIOR / Play-Pausa / SIGUIENTE -->
+        <LinearLayout
+            android:id="@+id/controls"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnPrev"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/btn_transport"
+                    android:contentDescription="@string/prev"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_prev"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/prev_label"
+                    android:textColor="#C3CDD6"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="134dp"
+                android:layout_height="134dp"
+                android:layout_marginHorizontal="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnPlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/play_fill"
+                    android:contentDescription="@string/play_pause"
+                    android:foreground="@drawable/btn_play_ring"
+                    android:padding="34dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_play_pause"
+                    app:tint="#FFFFFF" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/btn_transport"
+                    android:contentDescription="@string/next"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_next"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/next_label"
+                    android:textColor="#C3CDD6"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ===================== DERECHA: recuadro de info + preset + Bass Boost ===================== -->
+    <LinearLayout
+        android:id="@+id/rightColumn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/gBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/gRight"
+        app:layout_constraintTop_toBottomOf="@id/gTop">
+
+        <!--
+            Recuadro de info (antes Navegación / GPS): páginas de CockpitPrefs.infoPages (viaje,
+            gasolina, total, celular). Tocar en cualquier parte pasa a la siguiente; las flechas
+            también. Mantener 1 s abre la navegación en modo dividido, como el recuadro anterior.
+        -->
+        <LinearLayout
+            android:id="@+id/infoTile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.52"
+            android:background="@drawable/card_fill"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/card_glow"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/infoPrev"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/info_arrow_bg"
+                    android:contentDescription="@string/info_prev"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_chevron_left" />
+
+                <TextView
+                    android:id="@+id/infoTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-condensed"
+                    android:letterSpacing="0.08"
+                    android:singleLine="true"
+                    android:textColor="#9AA6B2"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/infoDots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+
+                <ImageView
+                    android:id="@+id/infoNext"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/info_arrow_bg"
+                    android:contentDescription="@string/info_next"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Páginas con números: viaje, gasolina, total -->
+            <LinearLayout
+                android:id="@+id/infoStats"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/InfoCell">
+                    <TextView android:id="@+id/infoV1" style="@style/InfoValue" />
+                    <TextView android:id="@+id/infoL1" style="@style/InfoLabel" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/InfoCell">
+                    <TextView android:id="@+id/infoV2" style="@style/InfoValue" />
+                    <TextView android:id="@+id/infoL2" style="@style/InfoLabel" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/infoCell3"
+                    style="@style/InfoCell">
+                    <TextView android:id="@+id/infoV3" style="@style/InfoValue" />
+                    <TextView android:id="@+id/infoL3" style="@style/InfoLabel" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Página del celular -->
+            <LinearLayout
+                android:id="@+id/infoPhone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/infoBolt"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_bolt"
+                    app:tint="#3DDC84" />
+
+                <TextView
+                    android:id="@+id/infoBattery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.iheii.veloradrive.SignalBarsView
+                            android:id="@+id/infoBars"
+                            android:layout_width="16dp"
+                            android:layout_height="12dp" />
+
+                        <TextView
+                            android:id="@+id/infoNet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-condensed"
+                            android:singleLine="true"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/infoData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:textColor="#8A97A4"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Aviso que ocupa el cuerpo (p. ej. "Conecta OfflineTune Car") -->
+            <TextView
+                android:id="@+id/infoMessage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:textColor="#C9D3DC"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/infoFoot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:singleLine="true"
+                android:textColor="#8A97A4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/infoFuelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/info_fuel_button"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Preset de audio: el activo en grande; tocar abre la lista completa -->
+        <LinearLayout
+            android:id="@+id/presetBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="0.34"
+            android:background="@drawable/card_fill"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/card_glow"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.1"
+                android:text="@string/presets_box_title"
+                android:textColor="#8A97A4"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/presetName"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="34sp"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/presetChevron"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="6dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_down" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/presets_box_hint"
+                android:textColor="#8A97A4"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Bass Boost: fila compacta con interruptor (ON = en el color de cabina con brillo; OFF = gris) -->
+        <LinearLayout
+            android:id="@+id/bassBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.14"
+            android:background="@drawable/card_fill"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/card_glow"
+            android:gravity="center_vertical"
+            android:minHeight="56dp"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:id="@+id/bassTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.04"
+                android:singleLine="true"
+                android:text="@string/bass_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bassState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/bassLine"
+                android:layout_width="48dp"
+                android:layout_height="26dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===================== BARRA INFERIOR ===================== -->
+    <!-- Línea neón que baja en el centro para abrazar CAR SYNC -->
+    <ImageView
+        android:id="@+id/bottomFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/bottom_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gBottom" />
+
+    <!-- Silencio (rojo) -->
+    <ImageButton
+        android:id="@+id/btnMute"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/mute"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_vol_off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gBottom"
+        app:tint="#FF3B4A" />
+
+    <LinearLayout
+        android:id="@+id/btnProjection"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:background="@drawable/btn_start"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/mediaCard"
+        app:layout_constraintStart_toStartOf="@id/mediaCard"
+        app:layout_constraintTop_toBottomOf="@id/gBottom"
+        app:layout_constraintWidth_percent="0.40">
+
+        <TextView
+            android:id="@+id/startLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="false"
+            android:text="@string/car_sync_line"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Ajustes (engrane pequeño) y volumen a la derecha -->
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/settings"
+        android:padding="14dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnVolume"
+        app:layout_constraintTop_toBottomOf="@id/gBottom"
+        app:tint="#7D8B99" />
+
+    <ImageButton
+        android:id="@+id/btnVolume"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/volume"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_vol_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gBottom"
+        app:tint="#FFFFFF" />
+</androidx.constraintlayout.widget.ConstraintLayout>

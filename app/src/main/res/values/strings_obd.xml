@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos de la tarjeta y la pantalla OBD2 (archivo aparte para no chocar con strings.xml). -->
+<resources>
+    <!-- Tarjeta de la pantalla principal -->
+    <string name="obd_card_name">OBD2</string>
+    <string name="obd_card_connected">CONECTADO</string>
+    <string name="obd_card_demo">MODO DEMO</string>
+    <string name="obd_unit_rpm">RPM</string>
+    <string name="obd_unit_kmh">km/h</string>
+    <string name="obd_unit_motor">°C motor</string>
+    <string name="obd_unit_battery">V batería</string>
+    <string name="obd_open">Abrir OBD2</string>
+
+    <!-- Pantalla OBD2 -->
+    <string name="obd_screen_title">OBD2</string>
+    <string name="obd_pill_connected">CONECTADO · ELM327 Bluetooth</string>
+    <string name="obd_pill_low_voltage">CONECTADO · Motor apagado</string>
+    <string name="obd_pill_demo">MODO DEMO</string>
+    <string name="obd_pill_waiting">Esperando conexión</string>
+    <string name="obd_pill_off">OBD2 desactivado</string>
+    <string name="obd_refresh">Actualiza cada 1 s</string>
+
+    <string name="obd_gauge_rpm">RPM</string>
+    <string name="obd_gauge_speed">KM/H</string>
+    <string name="obd_gauge_coolant">TEMP. MOTOR</string>
+    <string name="obd_gauge_volts">VOLTS BATERÍA</string>
+    <string name="obd_red_zone">ZONA ROJA %1$s</string>
+    <string name="obd_gps_speed">GPS: %1$d KM/H</string>
+    <string name="obd_temp_normal">NORMAL</string>
+    <string name="obd_temp_hot">CALIENTE</string>
+    <string name="obd_batt_charging">CARGANDO</string>
+    <string name="obd_batt_rest">EN REPOSO</string>
+    <string name="obd_batt_low">BAJO</string>
+    <string name="obd_batt_high">ALTO</string>
+
+    <string name="obd_load">CARGA DEL MOTOR</string>
+    <string name="obd_throttle">ACELERADOR</string>
+    <string name="obd_intake">TEMP. ADMISIÓN</string>
+    <string name="obd_fuel">COMBUSTIBLE</string>
+    <string name="obd_dtc">CÓDIGOS DE FALLA</string>
+    <string name="obd_unit_pct" formatted="false">%</string>
+    <string name="obd_unit_celsius">°C</string>
+
+    <string name="obd_dtc_none">Sin fallas</string>
+    <string name="obd_dtc_unread">Sin leer</string>
+    <string name="obd_dtc_reading">Leyendo…</string>
+    <string name="obd_dtc_hint">Toca para revisar otra vez</string>
+    <plurals name="obd_dtc_found">
+        <item quantity="one">%1$d falla</item>
+        <item quantity="other">%1$d fallas</item>
+    </plurals>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Barra de progreso gruesa (solo muestra, no se toca). El avance se tiñe con el color de cabina. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle"><solid android:color="#2A333D" /><corners android:radius="5dp" /></shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip><shape android:shape="rectangle"><solid android:color="#FFFFFFFF" /><corners android:radius="5dp" /></shape></clip>
+    </item>
+</layer-list>

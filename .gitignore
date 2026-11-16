@@ -1,0 +1,14 @@
+build/
+.gradle/
+local.properties
+*/build/
+.kotlin/
+apk-prueba/
+*.apk
+*.jks
+*.keystore
+keystore.properties
+*.aab
+.idea/
+*.iml
+.claude/

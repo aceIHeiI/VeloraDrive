@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Halo suave detrás de los íconos de la columna. Blanco: se tiñe con el color de cabina. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient
+        android:endColor="#00FFFFFF"
+        android:gradientRadius="50%p"
+        android:startColor="#40FFFFFF"
+        android:type="radial" />
+</shape>

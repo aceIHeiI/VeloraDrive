@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón grande en modo activo: velo y borde encendidos. Blanco: se tiñe con el color de cabina. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#2EFFFFFF" />
+            <stroke android:width="5dp" android:color="#26FFFFFF" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item android:bottom="6dp" android:left="2dp" android:right="2dp" android:top="2dp">
+        <shape android:shape="rectangle"><solid android:color="#00FFFFFF" /><stroke android:width="2dp" android:color="#FFFFFFFF" /><corners android:radius="16dp" /></shape>
+    </item>
+</layer-list>
