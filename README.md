@@ -64,4 +64,4 @@ Velora Drive y OfflineTune los hago yo solo en mi tiempo libre. Si te sirven, pu
 
 ## 📄 Licencia
 
-[MIT](LICENSE). Marcas y logotipos de terceros (Google Maps, Waze, etc.) pertenecen a sus dueños y se mencionan solo para indicar con qué apps funciona.
+[MIT](LICENSE) · [Política de privacidad](https://aceiheii.github.io/VeloraDrive/privacy-policy.html). Marcas y logotipos de terceros (Google Maps, Waze, etc.) pertenecen a sus dueños y se mencionan solo para indicar con qué apps funciona.
