@@ -394,7 +394,7 @@ class MainActivity : AppCompatActivity() {
     private fun renderTopStatus() {
         val st = remote.state
         binding.deviceName.text = profile.deviceName
-            ?: st?.device?.takeIf { remote.connected }
+            ?: st?.device?.takeIf { remote.connected || remote.reconnecting }
             ?: getString(R.string.device_default)
         binding.mobileTab.setText(when {
             remote.connected -> R.string.mobile_direct
