@@ -95,6 +95,8 @@ class VideoPlayerActivity : AppCompatActivity() {
     private var playable: List<VideoQuality> = emptyList()
     /** Altura elegida a mano; null = Automática. */
     private var chosenHeight: Int? = null
+    /** El usuario ya eligió calidad en esta pantalla; si no, manda la guardada (por defecto, la mínima). */
+    private var userChose = false
     private var current: VideoQuality? = null
     private var audioOnly = false
     private var hiddenByMotion = false
@@ -248,8 +250,20 @@ class VideoPlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun pickQuality(): VideoQuality? =
-        playable.firstOrNull { it.height == chosenHeight } ?: VideoCodecs.auto(playable, VideoPrefs.autoMaxHeight(this))
+    private fun pickQuality(): VideoQuality? {
+        val h = effHeight() ?: return VideoCodecs.auto(playable, VideoPrefs.autoMaxHeight(this))
+        return playable.firstOrNull { it.height == h } ?: playable.firstOrNull { it.height <= h } ?: playable.lastOrNull()
+    }
+
+    /** Altura pedida: la elegida ahora, o la guardada; null = Automática. Por defecto arranca en la mínima. */
+    private fun effHeight(): Int? {
+        if (userChose) return chosenHeight
+        return when (val saved = VideoPrefs.savedHeight(this)) {
+            VideoPrefs.HEIGHT_AUTO -> null
+            VideoPrefs.HEIGHT_MIN -> playable.lastOrNull()?.height
+            else -> saved
+        }
+    }
 
     /** Arma la fuente según la calidad y el modo y empieza en [posMs]. */
     private fun play(posMs: Long) {
@@ -479,7 +493,8 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     private fun renderQualityChip() {
         val label = when {
-            chosenHeight != null && playable.any { it.height == chosenHeight } -> getString(R.string.video_height, chosenHeight!!)
+            effHeight() != null -> pickQuality()?.let { getString(R.string.video_height, it.height) }
+                ?: getString(R.string.video_quality_auto_plain)
             else -> VideoCodecs.auto(playable, VideoPrefs.autoMaxHeight(this))
                 ?.let { getString(R.string.video_quality_auto_short, it.height) }
                 ?: getString(R.string.video_quality_auto_plain)
@@ -511,7 +526,7 @@ class VideoPlayerActivity : AppCompatActivity() {
             }, LinearLayout.LayoutParams((18 * d).toInt(), (18 * d).toInt()))
             menu.addView(row, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (46 * d).toInt()))
         }
-        val manual = chosenHeight?.takeIf { h -> playable.any { it.height == h } }
+        val manual = if (effHeight() != null) pickQuality()?.height else null
         add(getString(R.string.video_quality_auto), manual == null) { choose(null) }
         playable.forEach { q -> add(getString(R.string.video_height, q.height), manual == q.height) { choose(q.height) } }
         (menu.layoutParams as FrameLayout.LayoutParams).apply {
@@ -534,7 +549,9 @@ class VideoPlayerActivity : AppCompatActivity() {
     private fun choose(height: Int?) {
         hideQualityMenu()
         val before = pickQuality()
+        userChose = true
         chosenHeight = height
+        VideoPrefs.setSavedHeight(this, height ?: VideoPrefs.HEIGHT_AUTO)
         renderQualityChip()
         // En solo audio la calidad se guarda para cuando vuelva la imagen.
         if (!audioOnly && pickQuality() != before) rebuild()

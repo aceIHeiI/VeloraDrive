@@ -228,7 +228,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         discover()?.let { return@withContext it }
         // El servidor DHCP solo vale si el estéreo de verdad está en esa red: cuando el estéreo pone
         // el WiFi (Android Auto inalámbrico), Android deja ahí la IP vieja del último hotspot.
-        dhcpServer()?.let { if (sameSubnet(it.first) && isPhone(it.first, it.second)) return@withContext it }
+        dhcpCandidates().firstOrNull { sameSubnet(it.first) && isPhone(it.first, it.second) }?.let { return@withContext it }
         scan()?.let { return@withContext it }
         manual
     }
@@ -322,15 +322,17 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         return list
     }
 
+    /**
+     * Servidor DHCP y puerta de enlace de la red actual. Algunos estéreos chinos ponen el celular en
+     * uno y no en el otro, por eso se prueban los dos (cada uno se valida con /hello antes de usarse).
+     */
     @Suppress("DEPRECATION")
     @SuppressLint("WifiManagerLeak")
-    private fun dhcpServer(): Pair<String, Int>? {
+    private fun dhcpCandidates(): List<Pair<String, Int>> {
         val wifi = app.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val dhcp = runCatching { wifi.dhcpInfo }.getOrNull() ?: return null
-        val addr = if (dhcp.serverAddress != 0) dhcp.serverAddress else dhcp.gateway
-        if (addr == 0) return null
-        val ip = "${addr and 0xFF}.${addr shr 8 and 0xFF}.${addr shr 16 and 0xFF}.${addr shr 24 and 0xFF}"
-        return ip to CarProtocol.PORT
+        val dhcp = runCatching { wifi.dhcpInfo }.getOrNull() ?: return emptyList()
+        fun ip(addr: Int) = "${addr and 0xFF}.${addr shr 8 and 0xFF}.${addr shr 16 and 0xFF}.${addr shr 24 and 0xFF}"
+        return listOf(dhcp.serverAddress, dhcp.gateway).filter { it != 0 }.distinct().map { ip(it) to CarProtocol.PORT }
     }
 
     private inner class Listener(private val host: String, private val port: Int) : WebSocketListener() {
