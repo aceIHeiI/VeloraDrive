@@ -4,6 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
+import android.net.LinkProperties
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.net.wifi.WifiManager
 import android.os.SystemClock
 import android.util.LruCache
@@ -49,6 +54,9 @@ data class LinkUiState(
     val lastError: String? = null,
 ) {
     val connected get() = status == LinkStatus.CONNECTED && state != null
+    /** Se cayó la conexión pero se conserva el último estado y portada: la pantalla muestra "Reconectando". */
+    val reconnecting get() = !connected && state != null &&
+        status != LinkStatus.NO_TOKEN && status != LinkStatus.BAD_TOKEN
 }
 
 /**
@@ -98,6 +106,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
 
     fun start() {
         if (loop != null) return
+        watchNetwork()
         loop = scope.launch {
             while (isActive) {
                 connectOnce()
@@ -114,7 +123,45 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         socket = null
         open = false
         resetArt()
-        _ui.update { it.copy(status = LinkStatus.DISCONNECTED, state = null) }
+        unwatchNetwork()
+        _ui.update { it.copy(status = LinkStatus.DISCONNECTED) }
+    }
+
+    private var netCallback: ConnectivityManager.NetworkCallback? = null
+    @Volatile private var watchStartedAt = 0L
+
+    /**
+     * Si cambia la red WiFi (p. ej. al abrir Android Auto) se descarta la IP vieja y se corta el socket
+     * para redescubrir por UDP 8081 y /hello, en vez de esperar los 30 s del ping.
+     */
+    private fun watchNetwork() {
+        if (netCallback != null) return
+        watchStartedAt = SystemClock.elapsedRealtime()
+        val cm = app.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager ?: return
+        val cb = object : ConnectivityManager.NetworkCallback() {
+            private fun changed() {
+                // Al registrarse, Android avisa de las redes que ya existen: se ignora ese primer aviso.
+                if (SystemClock.elapsedRealtime() - watchStartedAt < NET_SETTLE_MS) return
+                lastGood = null
+                if (_ui.value.status == LinkStatus.CONNECTED) {
+                    socket?.cancel()
+                    open = false
+                }
+            }
+            override fun onAvailable(network: Network) = changed()
+            override fun onLost(network: Network) = changed()
+            override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) = changed()
+        }
+        runCatching {
+            cm.registerNetworkCallback(NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build(), cb)
+            netCallback = cb
+        }
+    }
+
+    private fun unwatchNetwork() {
+        val cb = netCallback ?: return
+        netCallback = null
+        runCatching { (app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).unregisterNetworkCallback(cb) }
     }
 
     /** Tras un corte: fuera las conexiones viejas y las portadas a medias, para pedirlas de nuevo. */
@@ -143,7 +190,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
             return
         }
         val (host, port) = target() ?: run {
-            _ui.update { it.copy(status = LinkStatus.NO_WIFI, state = null, host = null) }
+            _ui.update { it.copy(status = LinkStatus.NO_WIFI, host = null) }
             // Nadie respondió en la red: se espera un poco más antes de volver a revisarla.
             delay(NOT_FOUND_EXTRA_MS)
             return
@@ -176,7 +223,8 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         }
         // IP manual: si no contesta (la IP cambió u otra red), se busca solo igual.
         if (manual != null && reachable(manual)) return@withContext manual
-        lastGood?.let { if (reachable(it)) return@withContext it else lastGood = null }
+        // La última IP buena solo vale si de verdad contesta /hello (otra red puede reusar la misma IP).
+        lastGood?.let { if (isPhone(it.first, it.second)) return@withContext it else lastGood = null }
         discover()?.let { return@withContext it }
         // El servidor DHCP solo vale si el estéreo de verdad está en esa red: cuando el estéreo pone
         // el WiFi (Android Auto inalámbrico), Android deja ahí la IP vieja del último hotspot.
@@ -332,7 +380,15 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
             open = false
             resetArt()
             val why = reason?.takeIf { r -> r.isNotBlank() }
-            _ui.update { it.copy(status = status, state = null, error = why, lastError = why ?: it.lastError) }
+            // Se conserva el último estado y la portada (salvo código malo): la pantalla muestra "Reconectando".
+            _ui.update {
+                it.copy(
+                    status = status,
+                    state = if (status == LinkStatus.BAD_TOKEN) null else it.state,
+                    error = why,
+                    lastError = why ?: it.lastError,
+                )
+            }
         }
     }
 
@@ -392,5 +448,6 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         const val RETRY_MS = 3_000L
         const val PING_TIMEOUT_MS = 30_000L
         const val DISCOVERY_WAIT_MS = 1_500
+        private const val NET_SETTLE_MS = 3_000L
     }
 }

@@ -242,7 +242,8 @@ class DriveOverlayService : Service() {
         }
     }
 
-    private fun showingRemote() = remote.connected && remote.state != null && !preferLocal
+    /** También con el celular caído ("Reconectando"): el mini reproductor conserva lo último. */
+    private fun showingRemote() = (remote.connected || remote.reconnecting) && remote.state != null && !preferLocal
 
     /** Con OfflineTune: volumen del celular (0-100). Sin él: volumen de música del estéreo. */
     private fun setVolume(pct: Int) {
@@ -358,11 +359,11 @@ class DriveOverlayService : Service() {
             // Solo el preset activo, en verde; los demás se ven en la música completa.
             b.preset.text = st.preset.orEmpty()
             b.preset.visibility = if (st.preset != null) View.VISIBLE else View.GONE
-            b.btWarning.visibility = if (st.btAudio || st.androidAuto) View.GONE else View.VISIBLE
-            val elapsed = if (st.isPlaying) (SystemClock.elapsedRealtime() - remote.stateAt) / 1000 else 0
+            b.btWarning.visibility = if (!remote.connected || com.iheii.veloradrive.link.AudioWatchdog.audioReaches(st)) View.GONE else View.VISIBLE
+            val elapsed = if (remote.connected && st.isPlaying) (SystemClock.elapsedRealtime() - remote.stateAt) / 1000 else 0
             showProgress((st.positionSec + elapsed).coerceIn(0, st.durationSec.coerceAtLeast(0)), st.durationSec)
-            showPlaying(st.isPlaying)
-            if (st.isPlaying) handler.postDelayed(tick, 1_000L)
+            showPlaying(remote.connected && st.isPlaying)
+            if (remote.connected && st.isPlaying) handler.postDelayed(tick, 1_000L)
             enableControls(true)
         } else {
             val c = local

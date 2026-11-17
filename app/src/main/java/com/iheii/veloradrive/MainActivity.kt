@@ -346,13 +346,20 @@ class MainActivity : AppCompatActivity() {
             // Con Android Auto el audio va por el estéreo: no hace falta la app de Música BT.
             if (!was && s.state?.androidAuto != true) wakeBluetoothAudio()
             renderRemote(s)
-        } else if (was) {
-            // Se perdió el celular: vuelve lo que suene en el estéreo (si hay algo).
-            hideProgress()
-            binding.btWarning.visibility = View.GONE
-            renderMetadata(controller?.metadata)
-            renderPlayback(controller?.playbackState)
-            renderPresets()
+        } else {
+            if (was) {
+                hideProgress()
+                binding.btWarning.visibility = View.GONE
+            }
+            if (showingLast()) {
+                // Se cayó la conexión: se conserva lo último (título, artista, portada) y se avisa.
+                renderLast(s)
+            } else if (was) {
+                // Sin estado guardado: vuelve lo que suene en el estéreo (si hay algo).
+                renderMetadata(controller?.metadata)
+                renderPlayback(controller?.playbackState)
+            }
+            if (was) renderPresets()
         }
         renderControlsEnabled()
         // La hora del celular acaba de llegar: el reloj se corrige sin esperar al siguiente minuto.
@@ -389,7 +396,35 @@ class MainActivity : AppCompatActivity() {
         binding.deviceName.text = profile.deviceName
             ?: st?.device?.takeIf { remote.connected }
             ?: getString(R.string.device_default)
-        binding.mobileTab.setText(if (remote.connected) R.string.mobile_direct else R.string.link_waiting)
+        binding.mobileTab.setText(when {
+            remote.connected -> R.string.mobile_direct
+            remote.reconnecting -> R.string.link_reconnecting
+            else -> R.string.link_waiting
+        })
+    }
+
+    /** true con el celular caído y sin música local sonando: se muestra lo último guardado. */
+    private fun showingLast() = remote.reconnecting && !localPlaying()
+
+    private fun localPlaying(): Boolean {
+        val st = controller?.playbackState?.state
+        return st == PlaybackState.STATE_PLAYING || st == PlaybackState.STATE_BUFFERING
+    }
+
+    /** Último estado conocido, congelado (sin progreso) y con "Reconectando...". */
+    private fun renderLast(s: LinkUiState) {
+        val st = s.state ?: return
+        binding.mediaTitle.text = st.title.orEmpty()
+        setMarquee(false)
+        setMarquee(st.title != null)
+        binding.mediaStatus.text = st.artist.orEmpty()
+        binding.mediaSource.text = getString(R.string.source_line, st.source, getString(R.string.link_reconnecting))
+        binding.mediaArt.clipToOutline = true
+        if (s.art != null) binding.mediaArt.setImageBitmap(s.art) else binding.mediaArt.setImageResource(R.drawable.art_empty)
+        binding.btWarning.visibility = View.GONE
+        playing = false
+        binding.mountains.setPlaying(false)
+        hideProgress()
     }
 
     private fun renderRemote(s: LinkUiState) {
@@ -457,7 +492,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Sin celular ni música local no hay nada que controlar: los botones se atenúan. */
     private fun renderControlsEnabled() {
-        val on = remote.connected || controller != null
+        val on = remote.connected || remote.reconnecting || controller != null
         listOf(binding.btnPrev, binding.btnPlay, binding.btnNext).forEach {
             it.isEnabled = on
             it.alpha = if (on) 1f else 0.4f
@@ -1075,7 +1110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderMetadata(meta: MediaMetadata?) {
-        if (remote.connected) return
+        if (remote.connected || showingLast()) return
         val title = meta?.getString(MediaMetadata.METADATA_KEY_TITLE)
             ?: meta?.getString(MediaMetadata.METADATA_KEY_DISPLAY_TITLE)
         // Todo sale de la canción real; sin canción no se inventa texto.
@@ -1102,7 +1137,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderPlayback(state: PlaybackState?) {
         renderControlsEnabled()
-        if (remote.connected) return
+        if (remote.connected || showingLast()) return
         playing = state?.state == PlaybackState.STATE_PLAYING ||
             state?.state == PlaybackState.STATE_BUFFERING
         val artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST)
