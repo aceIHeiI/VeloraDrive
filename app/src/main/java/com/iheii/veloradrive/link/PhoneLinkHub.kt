@@ -77,6 +77,8 @@ object PhoneLinkHub {
         }
     }
 
+    fun setBassLocal(context: Context, on: Boolean) = get(context).setBassLocal(on)
+
     fun send(context: Context, action: String, value: JsonPrimitive? = null, valueSec: Long? = null) =
         get(context).send(action, value, valueSec)
 

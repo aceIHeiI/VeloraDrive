@@ -125,6 +125,11 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         shownArtUrl = null
     }
 
+    /** Bass Boost al instante en la pantalla; el siguiente estado del celular lo confirma o lo corrige. */
+    fun setBassLocal(on: Boolean) {
+        _ui.update { s -> s.state?.let { s.copy(state = it.copy(bass = on)) } ?: s }
+    }
+
     fun send(action: String, value: JsonPrimitive? = null, valueSec: Long? = null) {
         val ws = socket ?: return
         ws.send(CarProtocol.json.encodeToString(CarCommand(action = action, value = value, valueSec = valueSec)))
@@ -300,6 +305,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
                     lastPing = now
                     val st = runCatching { CarProtocol.json.decodeFromString<CarState>(text) }.getOrNull() ?: return
                     _ui.update { it.copy(state = st, stateAt = now, status = LinkStatus.CONNECTED) }
+                    st.bass?.let { com.iheii.veloradrive.CockpitPrefs.setBassLast(app, it) }
                     loadArt(st.albumArtUrl, host, port)
                 }
                 "video_play" -> {

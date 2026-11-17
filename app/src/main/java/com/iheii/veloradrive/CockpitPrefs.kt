@@ -25,6 +25,12 @@ object CockpitPrefs {
     fun legacyBrand(c: Context): String? = prefs(c).getString("pref_brand", null)
         ?.lowercase()?.replaceFirstChar { it.titlecase() }
 
+    /** Último Bass Boost del celular (OfflineTune) visto o pedido desde Velora. */
+    fun bassLast(c: Context) = prefs(c).getBoolean("pref_bass_last", false)
+    fun setBassLast(c: Context, on: Boolean) {
+        if (bassLast(c) != on) prefs(c).edit().putBoolean("pref_bass_last", on).apply()
+    }
+
     /** Animar las montañas de sonido aunque no suene nada (gasta algo de CPU). */
     fun idleAnimation(c: Context) = prefs(c).getBoolean("pref_idle_animation", true)
     fun setIdleAnimation(c: Context, on: Boolean) = prefs(c).edit().putBoolean("pref_idle_animation", on).apply()

@@ -153,6 +153,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         super.onStop()
         // Fuera de la vista (y no en ventana mini): el video se pausa.
         player?.pause()
+        com.iheii.veloradrive.link.AudioWatchdog.videoPlaying = false
         handler.removeCallbacks(progressTick)
         handler.removeCallbacks(positionTick)
         // El video se cerró a propósito: el celular ya no debe ofrecer "Seguir viendo en el celular".
@@ -333,6 +334,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
+            com.iheii.veloradrive.link.AudioWatchdog.videoPlaying = isPlaying
             b.btnPlay.setImageResource(if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play)
             if (isPlaying) scheduleHide() else showControls()
         }

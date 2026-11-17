@@ -32,5 +32,10 @@ class PhoneLinkViewModel(private val app: Application) : AndroidViewModel(app) {
     fun previous() = PhoneLinkHub.send(app, "previous")
     fun setVolume(v: Int) = PhoneLinkHub.send(app, "set_volume", JsonPrimitive(v.coerceIn(0, 100)))
     fun setPreset(p: String) = PhoneLinkHub.send(app, "set_preset", JsonPrimitive(p))
-    fun setBass(on: Boolean) = PhoneLinkHub.send(app, "set_bass", JsonPrimitive(on))
+    fun setBass(on: Boolean) {
+        // Al tocarlo: se manda set_bass, la pantalla cambia al instante y se guarda; el estado lo confirma.
+        PhoneLinkHub.setBassLocal(app, on)
+        com.iheii.veloradrive.CockpitPrefs.setBassLast(app, on)
+        PhoneLinkHub.send(app, "set_bass", JsonPrimitive(on))
+    }
 }

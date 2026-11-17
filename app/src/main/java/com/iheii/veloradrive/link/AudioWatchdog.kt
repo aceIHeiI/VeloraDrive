@@ -47,6 +47,16 @@ object AudioWatchdog {
     /** Último intento de reparación, para la pantalla de depuración. */
     val lastAction: StateFlow<String?> = _lastAction
 
+    /** true mientras el reproductor de video de Velora está sonando (su audio viaja por WiFi, no por Bluetooth). */
+    @Volatile var videoPlaying = false
+
+    /**
+     * El audio de la música llega al estéreo: Bluetooth A2DP, Android Auto, video sonando aquí o sonido
+     * real detectado en el estéreo. El aviso "Conecta el Bluetooth..." solo sale si ninguno se cumple.
+     */
+    fun audioReaches(st: CarState): Boolean =
+        st.btAudio || st.androidAuto || videoPlaying || _sound.value == Sound.YES
+
     /** La pantalla principal de Velora está al frente (para saber si hay que regresar a ella). */
     @Volatile var veloraVisible = false
 

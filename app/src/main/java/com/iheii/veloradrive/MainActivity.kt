@@ -331,6 +331,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { LinkPrefs.flow(this@MainActivity).collect { linkConfig = it } }
+                // El sonido del estéreo cambia sin que llegue un estado nuevo: se revisa el aviso.
+                launch { com.iheii.veloradrive.link.AudioWatchdog.sound.collect { renderBtWarning() } }
                 link.ui.collect { renderLink(it) }
             }
         }
@@ -401,11 +403,21 @@ class MainActivity : AppCompatActivity() {
         binding.mediaArt.clipToOutline = true
         if (s.art != null) binding.mediaArt.setImageBitmap(s.art) else binding.mediaArt.setImageResource(R.drawable.art_empty)
         // El audio sale del celular por Bluetooth: sin A2DP se avisa (salvo con Android Auto).
-        binding.btWarning.visibility = if (st.btAudio || st.androidAuto) View.GONE else View.VISIBLE
+        renderBtWarning()
         playing = st.isPlaying
         binding.mountains.setPlaying(st.isPlaying)
         renderPresets()
         renderRemoteProgress()
+    }
+
+    /**
+     * Solo se avisa si el audio de verdad no llega al estéreo: sin Bluetooth, sin Android Auto, sin
+     * video sonando y sin sonido detectado en el estéreo.
+     */
+    private fun renderBtWarning() {
+        val st = remote.state
+        val show = remote.connected && st != null && !com.iheii.veloradrive.link.AudioWatchdog.audioReaches(st)
+        binding.btWarning.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     /** Progreso local: avanza cada segundo desde el último position_sec; se corrige con cada estado. */
