@@ -6,10 +6,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-// Firma: keystore.properties en la raíz, o la ruta en la variable VELORA_SIGNING (nunca va al repositorio)
+// Firma: keystore.properties en la raíz, o la ruta en la variable VELORA_SIGNING (nunca va al repositorio).
+// storeFile puede ser una ruta absoluta o relativa; si es relativa se busca junto al keystore.properties.
+val signingFile = file(System.getenv("VELORA_SIGNING") ?: rootProject.file("keystore.properties").path)
 val signingProps = Properties().apply {
-    val f = file(System.getenv("VELORA_SIGNING") ?: rootProject.file("keystore.properties").path)
-    if (f.exists()) f.inputStream().use { load(it) }
+    if (signingFile.exists()) signingFile.inputStream().use { load(it) }
 }
 
 android {
@@ -33,7 +34,9 @@ android {
     signingConfigs {
         if (signingProps.getProperty("storeFile") != null) {
             create("release") {
-                storeFile = file(signingProps.getProperty("storeFile"))
+                storeFile = signingProps.getProperty("storeFile").let { path ->
+                    File(path).takeIf { it.isAbsolute } ?: File(signingFile.parentFile, path)
+                }
                 storePassword = signingProps.getProperty("storePassword")
                 keyAlias = signingProps.getProperty("keyAlias")
                 keyPassword = signingProps.getProperty("keyPassword")
