@@ -51,6 +51,10 @@ object PhoneLinkHub {
         scope.launch {
             l.videoPlay.collect { vp -> VideoPlayerActivity.openFromPhone(app, vp) }
         }
+        // El celular cerró el video (X del mini): se cierra aquí también.
+        scope.launch {
+            l.videoClose.collect { VideoPlayerActivity.closeFromPhone() }
+        }
     }
 
     fun acquire(context: Context) {

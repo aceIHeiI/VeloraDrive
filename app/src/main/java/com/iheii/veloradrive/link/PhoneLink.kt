@@ -89,6 +89,10 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
     /** "Ver en el coche" desde el celular (mensaje video_play). */
     val videoPlay: SharedFlow<CarVideoPlay> = _videoPlay
 
+    private val _videoClose = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    /** El celular cerró el video (mensaje video_close). */
+    val videoClose: SharedFlow<Unit> = _videoClose
+
     private var config = LinkConfig()
     private var socket: WebSocket? = null
     private var loop: Job? = null
@@ -358,6 +362,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
                     st.bass?.let { com.iheii.veloradrive.CockpitPrefs.setBassLast(app, it) }
                     loadArt(st.albumArtUrl, host, port)
                 }
+                "video_close" -> _videoClose.tryEmit(Unit)
                 "video_play" -> {
                     val vp = runCatching { CarProtocol.json.decodeFromString<CarVideoPlay>(text) }.getOrNull() ?: return
                     _videoPlay.tryEmit(vp)

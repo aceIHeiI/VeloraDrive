@@ -167,3 +167,10 @@ data class CarVideoPlay(
     val title: String,
     @SerialName("position_sec") val positionSec: Long = 0,
 )
+
+/** Celular → coche: el celular cerró el video (X del mini reproductor); Velora lo cierra también. */
+@Serializable
+data class CarVideoClose(
+    val v: Int = CarProtocol.VERSION,
+    val type: String = "video_close",
+)

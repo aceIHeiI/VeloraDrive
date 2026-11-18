@@ -89,6 +89,8 @@ class VideoPlayerActivity : AppCompatActivity() {
     private var loadJob: Job? = null
 
     private var currentId: String? = null
+    /** El video lo mandó el celular: anterior, siguiente y el fin del video los resuelve el celular con su cola. */
+    private var fromPhone = false
     private var title = ""
     private var itemDownloaded = false
     private var info: VideoInfo? = null
@@ -107,6 +109,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        instance = java.lang.ref.WeakReference(this)
         b = ActivityVideoPlayerBinding.inflate(layoutInflater)
         setContentView(b.root)
         goImmersive()
@@ -170,6 +173,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (instance?.get() === this) instance = null
         handler.removeCallbacksAndMessages(null)
         loadJob?.cancel()
         player?.release()
@@ -183,6 +187,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         val t = intent.getStringExtra(EXTRA_TITLE).orEmpty()
         val posMs = intent.getLongExtra(EXTRA_POS_SEC, 0L).coerceAtLeast(0L) * 1000L
         val downloaded = intent.getBooleanExtra(EXTRA_DOWNLOADED, false)
+        fromPhone = intent.getBooleanExtra(EXTRA_FROM_PHONE, false)
         open(id, t, downloaded, posMs)
     }
 
@@ -342,6 +347,7 @@ class VideoPlayerActivity : AppCompatActivity() {
             b.buffering.visibility = if (state == Player.STATE_BUFFERING) View.VISIBLE else View.GONE
             if (state == Player.STATE_ENDED) {
                 val id = currentId ?: return
+                if (fromPhone) { PhoneLinkHub.send(this@VideoPlayerActivity, "video_ended", JsonPrimitive(id)); showControls(); return }
                 VideoQueue.next(id)?.let { playItem(it) } ?: showControls()
             }
             renderProgress()
@@ -427,11 +433,16 @@ class VideoPlayerActivity : AppCompatActivity() {
             val p = player
             val id = currentId ?: return@setOnClickListener
             // Como en cualquier reproductor: pasados unos segundos, "anterior" vuelve al inicio.
-            if (p != null && p.currentPosition > 5_000) p.seekTo(0) else VideoQueue.previous(id)?.let { playItem(it) }
+            if (p != null && p.currentPosition > 5_000) p.seekTo(0)
+            else if (fromPhone) PhoneLinkHub.send(this, "video_prev", JsonPrimitive(id))
+            else VideoQueue.previous(id)?.let { playItem(it) }
             showControls()
         }
         b.btnNext.setOnClickListener {
-            currentId?.let { id -> VideoQueue.next(id)?.let { playItem(it) } }
+            currentId?.let { id ->
+                if (fromPhone) PhoneLinkHub.send(this, "video_next", JsonPrimitive(id))
+                else VideoQueue.next(id)?.let { playItem(it) }
+            }
             showControls()
         }
         b.seek.max = SEEK_MAX
@@ -476,8 +487,8 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     private fun renderNav() {
         val id = currentId
-        val hasPrev = id != null && VideoQueue.previous(id) != null
-        val hasNext = id != null && VideoQueue.next(id) != null
+        val hasPrev = id != null && (fromPhone || VideoQueue.previous(id) != null)
+        val hasNext = id != null && (fromPhone || VideoQueue.next(id) != null)
         b.btnNext.isEnabled = hasNext
         b.btnNext.alpha = if (hasNext) 1f else 0.35f
         // "Anterior" siempre sirve: vuelve al inicio del video si no hay uno antes.
@@ -700,11 +711,16 @@ class VideoPlayerActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val POSITION_EVERY_MS = 5_000L
+        private const val POSITION_EVERY_MS = 1_000L
         private const val EXTRA_ID = "video_id"
         private const val EXTRA_TITLE = "video_title"
         private const val EXTRA_POS_SEC = "video_pos_sec"
         private const val EXTRA_DOWNLOADED = "video_downloaded"
+        private const val EXTRA_FROM_PHONE = "video_from_phone"
+        private var instance: java.lang.ref.WeakReference<VideoPlayerActivity>? = null
+
+        /** El celular cerró el video: se cierra la pantalla (y la ventana mini si la hay). */
+        fun closeFromPhone() { instance?.get()?.finish() }
         private const val SEEK_MS = 10_000L
         private const val SEEK_MAX = 1000
         private const val HIDE_MS = 4_000L
@@ -732,6 +748,7 @@ class VideoPlayerActivity : AppCompatActivity() {
             runCatching {
                 context.startActivity(
                     intent(context, vp.id, vp.title, item.downloaded, vp.positionSec)
+                        .putExtra(EXTRA_FROM_PHONE, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                 )
             }
