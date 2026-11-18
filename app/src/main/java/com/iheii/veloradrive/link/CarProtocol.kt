@@ -174,3 +174,11 @@ data class CarVideoClose(
     val v: Int = CarProtocol.VERSION,
     val type: String = "video_close",
 )
+
+/** Celular → coche: pausar o reanudar el video que muestra Velora (action: play, pause, toggle). */
+@Serializable
+data class CarVideoControl(
+    val v: Int = CarProtocol.VERSION,
+    val type: String = "video_control",
+    val action: String = "toggle",
+)

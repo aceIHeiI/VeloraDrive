@@ -93,6 +93,10 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
     /** El celular cerró el video (mensaje video_close). */
     val videoClose: SharedFlow<Unit> = _videoClose
 
+    private val _videoControl = MutableSharedFlow<String>(extraBufferCapacity = 4)
+    /** El celular pide pausar o reanudar el video (mensaje video_control). */
+    val videoControl: SharedFlow<String> = _videoControl
+
     private var config = LinkConfig()
     private var socket: WebSocket? = null
     private var loop: Job? = null
@@ -363,6 +367,10 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
                     loadArt(st.albumArtUrl, host, port)
                 }
                 "video_close" -> _videoClose.tryEmit(Unit)
+                "video_control" -> {
+                    val vc = runCatching { CarProtocol.json.decodeFromString<CarVideoControl>(text) }.getOrNull() ?: return
+                    _videoControl.tryEmit(vc.action)
+                }
                 "video_play" -> {
                     val vp = runCatching { CarProtocol.json.decodeFromString<CarVideoPlay>(text) }.getOrNull() ?: return
                     _videoPlay.tryEmit(vp)

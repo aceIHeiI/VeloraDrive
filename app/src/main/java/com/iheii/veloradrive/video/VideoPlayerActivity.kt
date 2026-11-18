@@ -721,6 +721,19 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         /** El celular cerró el video: se cierra la pantalla (y la ventana mini si la hay). */
         fun closeFromPhone() { instance?.get()?.finish() }
+
+        /** El celular pausa o reanuda el video desde su mini reproductor. */
+        fun controlFromPhone(action: String) {
+            val a = instance?.get() ?: return
+            a.handler.post {
+                val p = a.player ?: return@post
+                when (action) {
+                    "play" -> p.play()
+                    "pause" -> p.pause()
+                    else -> if (p.isPlaying) p.pause() else p.play()
+                }
+            }
+        }
         private const val SEEK_MS = 10_000L
         private const val SEEK_MAX = 1000
         private const val HIDE_MS = 4_000L

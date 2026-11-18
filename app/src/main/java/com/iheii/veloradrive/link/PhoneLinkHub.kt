@@ -55,6 +55,9 @@ object PhoneLinkHub {
         scope.launch {
             l.videoClose.collect { VideoPlayerActivity.closeFromPhone() }
         }
+        scope.launch {
+            l.videoControl.collect { action -> VideoPlayerActivity.controlFromPhone(action) }
+        }
     }
 
     fun acquire(context: Context) {
