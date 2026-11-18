@@ -75,6 +75,15 @@ Si se corta la conexión, Velora muestra **Reconectando…** con la última canc
   <img src="docs/10-video-calidad.jpg" width="48%" alt="Menú de calidad">
 </p>
 
+<p align="center">
+  <img src="docs/12-launcher-video-mini.jpg" width="80%" alt="El video sigue en una ventana mini sobre el launcher">
+</p>
+<p align="center">
+  <img src="docs/13-video-pantalla-completa.jpg" width="60%" alt="Video a pantalla completa">
+</p>
+
+Si dejas el video en la **ventana mini** (botón *Mini*), al cambiar de video desde el celular se carga ahí mismo y no se maximiza: puedes seguir viendo el mapa u otra app.
+
 **Mini reproductor sobre el mapa o Android Auto.** En **Ajustes › Celular** hay un interruptor para dejar el mini reproductor encima del mapa o de la app de enlace del estéreo (ZLink, Android Auto…). Pide el permiso "mostrar sobre otras apps" la primera vez.
 
 ## 🛠️ Solución de problemas
