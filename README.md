@@ -28,7 +28,7 @@
 
 ## ⬇️ Instalación
 
-1. Ve a **[Releases](https://github.com/aceIHeiI/VeloraDrive/releases/latest)** y descarga el `.apk` (`VeloraDrive-1.0.1.apk`).
+1. Ve a **[Releases](https://github.com/aceIHeiI/VeloraDrive/releases/latest)** y descarga el `.apk` (`VeloraDrive-1.0.2.apk`).
 2. Instálalo en tu estéreo (puede pedir permitir apps de fuentes desconocidas).
 3. Pulsa el botón de inicio y elige **Velora Drive** como launcher.
 4. Para usar la música y el video de tu celular, sigue **Conectar con tu celular**, aquí abajo.
@@ -68,7 +68,7 @@ Para actualizar, instala la versión nueva encima. Si antes tenías la 1.0.0, se
 
 Si se corta la conexión, Velora muestra **Reconectando…** con la última canción y reintenta sola; cuando el celular vuelve, sigue donde iba.
 
-**Video.** En el reproductor de OfflineTune Car toca **Ver en el coche**. El video empieza en la calidad más baja (144p) y puedes subirla desde el menú **Calidad** del estéreo; Velora recuerda la que elijas. Si ves un video en el estéreo y sales, la música continúa en el punto donde ibas.
+**Video.** En el reproductor de OfflineTune Car toca **Ver en el coche**. Los botones de siguiente y anterior del estéreo siguen la lista del celular, al terminar un video pasa solo al siguiente y, si cambias de canción en el celular, el video nuevo llega al coche sin volver a pulsar nada. Si cierras el reproductor del celular con la X, el video se cierra también en el estéreo. El video empieza en la calidad más baja (144p) y puedes subirla desde el menú **Calidad** del estéreo; Velora recuerda la que elijas. Si ves un video en el estéreo y sales, la música continúa en el punto donde ibas.
 
 <p align="center">
   <img src="docs/09-video-144p.jpg" width="48%" alt="Video en 144p">
