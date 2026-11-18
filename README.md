@@ -11,6 +11,7 @@
 - 🏠 **Pantalla principal** con la música que suena, hora, atajos a Apps, Video, Radio FM y OBD2.
 - 🎵 **Reproductor** con carátula, onda animada y controles grandes. Funciona con la música que suene en el estéreo.
 - 📲 **Conexión con [OfflineTune Car](https://github.com/aceIHeiI/OfflineTune/releases/latest)** por WiFi (hotspot del celular): el estéreo no necesita internet propio, el celular le manda la canción, la portada y el video.
+- 📺 **Video sobre Android Auto**: el video del celular se abre encima de Android Auto y, como ventanita flotante, sigues viendo Google Maps.
 - 🎬 **Video** que le manda OfflineTune Car, con biblioteca, calidad automática o manual y reproductor propio.
 - 🚗 **OBD2**: medidores en vivo con un escáner ELM327 por Bluetooth, códigos de falla y un modo demo para probar sin escáner.
 - 🧭 **Viaje**: kilómetros, tiempo y velocidad promedio del trayecto.
@@ -34,6 +35,19 @@
 4. Para usar la música y el video de tu celular, sigue **Conectar con tu celular**, aquí abajo.
 
 Para actualizar, instala la versión nueva encima. Si antes tenías la 1.0.0, se actualiza sin perder tus ajustes.
+
+## 📺 Android Auto + video
+
+Manda un video de tu celular al estéreo y se abre **encima de Android Auto**. Con un toque lo conviertes en una **ventanita flotante** y sigues viendo **Google Maps** mientras suena. Si cambias de video o avanzas la lista desde el celular, la ventana **no se maximiza** ni te tapa el mapa.
+
+<p align="center">
+  <img src="docs/14-android-auto-video.jpg" width="62%" alt="El video flotando sobre Google Maps en Android Auto">
+  <img src="docs/15-celular-ver-en-el-coche.jpg" width="25%" alt="En el celular: botón Ver en el coche">
+</p>
+
+Pasos: en el celular abre un video en OfflineTune Car y toca **Ver en el coche**; en el estéreo toca **Mini** para dejarlo flotando sobre Android Auto. Configuración en la sección de abajo.
+
+⚠️ Ve videos solo con el coche detenido.
 
 ## 📲 Conectar con tu celular (OfflineTune Car)
 
