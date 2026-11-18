@@ -96,7 +96,7 @@ Si dejas el video en la **ventana mini** (botón *Mini*), al cambiar de video de
 | **Se ve la canción pero no suena** | El audio va por Bluetooth: conecta el Bluetooth del celular al estéreo. Velora avisa "Conecta el Bluetooth para escuchar el audio". |
 | **No hay video o dice que la canción no tiene video** | El video solo existe para canciones con identificador de YouTube (las descargadas desde Buscar). Las importadas de tu carpeta no lo tienen. |
 
-> ⚠️ **Probado en emuladores.** La conexión, el estado, la portada, los presets, el Bass Boost, el video y el mini reproductor se probaron con dos emuladores Android. **Aún no** se ha probado en un coche real el audio por Bluetooth, Android Auto, el celular bloqueado ni el cambio de WiFi con el hotspot del estéreo.
+✅ **Probado en un celular y un estéreo Android reales.** Si encuentras algo raro, cuéntame en un [Issue](https://github.com/aceIHeiI/VeloraDrive/issues).
 
 ## 🔐 Permisos y para qué sirven
 
