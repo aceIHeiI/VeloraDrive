@@ -203,7 +203,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         renderNav()
         renderQualityChip()
         hideQualityMenu()
-        showControls()
+        if (!isInPictureInPictureMode) showControls()
         if (!VideoPrefs.warningAccepted(this)) {
             player?.stop()
             showWarning { start(posMs) }
@@ -758,6 +758,14 @@ class VideoPlayerActivity : AppCompatActivity() {
         fun openFromPhone(context: Context, vp: CarVideoPlay) {
             val item = VideoQueue.get(vp.id) ?: VideoItem(id = vp.id, title = vp.title)
             VideoQueue.ensure(item)
+            // Si la pantalla ya está a la vista (a pantalla completa o en la ventana mini), el video nuevo se carga ahí mismo:
+            // lanzar la actividad otra vez la sacaría de la ventana mini y taparía lo que el usuario estaba viendo (mapas).
+            val live = instance?.get()
+            if (live != null && !live.isFinishing && (live.isInPictureInPictureMode || live.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))) {
+                val i = intent(context, vp.id, vp.title, item.downloaded, vp.positionSec).putExtra(EXTRA_FROM_PHONE, true)
+                live.handler.post { live.setIntent(i); live.handleIntent(i) }
+                return
+            }
             runCatching {
                 context.startActivity(
                     intent(context, vp.id, vp.title, item.downloaded, vp.positionSec)
