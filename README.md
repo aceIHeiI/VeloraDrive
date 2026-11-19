@@ -1,5 +1,7 @@
 # Velora Drive
 
+> **Complemento opcional de [OfflineTune](https://github.com/aceIHeiI/OfflineTune)**, la app principal (reproductor de música para el celular). Velora Drive es solo el launcher que va en el **estéreo Android del coche**. Si lo que buscas es escuchar tu música sin internet en el celular, descarga OfflineTune.
+
 **Velora Drive** es un launcher (pantalla de inicio) para estéreos Android de coche, pensado para pantallas de 7", 9" y 10" (1024×600). Junta en una sola pantalla lo que usas manejando: lo que suena, tus apps, la radio, el video, los medidores del coche y el audio.
 
 <p align="center">
