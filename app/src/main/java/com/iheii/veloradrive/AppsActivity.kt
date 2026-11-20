@@ -21,7 +21,7 @@ import com.iheii.veloradrive.databinding.ActivityAppsBinding
 import com.iheii.veloradrive.databinding.ItemAppBinding
 
 /** Cajón con todas las apps instaladas, pensado para abrir rápido APKs de prueba. */
-class AppsActivity : AppCompatActivity() {
+class AppsActivity : LocaleActivity() {
 
     private lateinit var binding: ActivityAppsBinding
     private var allApps = emptyList<AppEntry>()

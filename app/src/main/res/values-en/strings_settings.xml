@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full Settings screen (SettingsActivity). -->
+<resources>
+    <string name="aj_title">SETTINGS</string>
+
+    <!-- Sections -->
+    <string name="aj_sec_phone">Phone</string>
+    <string name="aj_sec_sound">Sound</string>
+    <string name="aj_sec_screen">Display</string>
+    <string name="aj_sec_buttons">Buttons and apps</string>
+    <string name="aj_sec_obd">OBD2</string>
+    <string name="aj_sec_video">Video</string>
+    <string name="aj_sec_diag">Diagnostics</string>
+
+    <!-- Common -->
+    <string name="aj_save">Save</string>
+    <string name="aj_not_set">Not set</string>
+    <string name="aj_set">Set</string>
+    <string name="aj_on">On</string>
+    <string name="aj_off">Off</string>
+
+    <!-- Phone -->
+    <string name="aj_status_connected">Connected to %1$s</string>
+    <string name="aj_status_phone">your phone</string>
+    <string name="aj_status_sub">OfflineTune Car · %1$s</string>
+    <string name="aj_status_connecting">Connecting to the phone…</string>
+    <string name="aj_status_no_token">The phone code is missing</string>
+    <string name="aj_status_bad_token">The code doesn\'t match. After 5 failed attempts the phone waits a minute or more before accepting another.</string>
+    <string name="aj_status_no_wifi">No WiFi network</string>
+    <string name="aj_status_disconnected">Phone not connected</string>
+    <string name="aj_status_hint">Turn on the phone hotspot and open OfflineTune Car</string>
+    <string name="aj_details">See details</string>
+    <string name="aj_code">Phone code</string>
+    <string name="aj_code_desc">The one OfflineTune Car shows on your phone (4 to 6 digits)</string>
+    <string name="aj_ssid">Phone hotspot</string>
+    <string name="aj_ssid_desc">Name of the phone\'s WiFi network</string>
+    <string name="aj_password">Hotspot password</string>
+    <string name="aj_host">Manual IP</string>
+    <string name="aj_host_desc">Optional, for diagnostics only. Empty = automatic</string>
+    <string name="aj_audio_fix_desc">If the phone plays and the stereo doesn\'t, it tries to open the sound by itself</string>
+    <string name="aj_overlay">Mini player over Android Auto</string>
+    <string name="aj_overlay_desc">When using CAR SYNC</string>
+    <string name="aj_bt_wake_desc">Briefly opens the stereo\'s BT Music so the phone plays</string>
+    <string name="aj_bt_pick_desc">Current app: %1$s</string>
+    <string name="aj_phone_time">Phone time</string>
+    <string name="aj_phone_time_desc">Uses your phone\'s time and time zone instead of the stereo\'s</string>
+
+    <!-- Sound -->
+    <string name="aj_eq_app">Equalizer app</string>
+    <string name="aj_eq_preset">Equalizer</string>
+    <string name="aj_eq_preset_desc">Same setting as the pills on the main screen</string>
+    <string name="aj_eq_rock">Rock</string>
+    <string name="aj_eq_pop">Pop</string>
+    <string name="aj_eq_flat">Normal</string>
+    <string name="aj_eq_unsupported">This stereo doesn\'t allow changing the equalizer</string>
+    <string name="aj_bass">Bass boost</string>
+    <string name="aj_bass_desc">Raises the bass of all the stereo\'s audio</string>
+    <string name="aj_bass_unsupported">This stereo doesn\'t support bass boost</string>
+    <string name="aj_music_app">Music app</string>
+
+    <!-- Display -->
+    <string name="aj_language">Language</string>
+    <string name="aj_language_desc">Automatic follows the system language</string>
+    <string name="aj_language_auto">Automatic</string>
+    <string name="aj_night">Night mode</string>
+    <string name="aj_night_desc">Lowers Velora\'s brightness (doesn\'t change the system brightness)</string>
+    <string name="aj_idle_anim">Animate the sound mountains</string>
+    <string name="aj_idle_minutes">Screensaver when idle</string>
+    <string name="aj_device">Phone name</string>
+    <string name="aj_brand">Car brand</string>
+    <string name="aj_brand_none">No brand (VELORA)</string>
+    <string name="aj_model">Car model</string>
+    <string name="aj_pages">Right box pages</string>
+    <string name="aj_pages_desc">Check the ones you want to see and reorder them with the arrows</string>
+    <string name="aj_pages_min">Leave at least one page</string>
+    <string name="aj_page_trip">This trip</string>
+    <string name="aj_page_fuel">Since the fill-up</string>
+    <string name="aj_page_total">Total</string>
+    <string name="aj_page_phone">My phone</string>
+    <string name="aj_move_up">Up</string>
+    <string name="aj_move_down">Down</string>
+
+    <!-- Buttons and apps -->
+    <string name="aj_buttons_hint">You can also press and hold a button for 1 second on the main screen</string>
+    <string name="aj_slot_custom">Chosen: %1$s</string>
+    <string name="aj_slot_default">Default: %1$s</string>
+    <string name="aj_slot_ask">Default: chosen on the first tap</string>
+
+    <!-- OBD2 -->
+    <string name="aj_obd">Enable OBD2</string>
+    <string name="aj_obd_device">ELM327 scanner</string>
+    <string name="aj_obd_device_none">None chosen. Pair the ELM327 in Android settings</string>
+    <string name="aj_obd_demo">Demo mode</string>
+    <string name="aj_obd_demo_desc">Test data to see the gauges without a scanner</string>
+
+    <!-- Video -->
+
+    <!-- Diagnostics -->
+    <string name="aj_diag_live">Live (updates every second)</string>
+    <string name="aj_export">Export diagnostics</string>
+    <string name="aj_export_desc">Creates a text file to send. It doesn\'t include the code or the password</string>
+    <string name="aj_export_failed">Couldn\'t create the file</string>
+    <string name="aj_export_chooser">Send diagnostics</string>
+    <!-- Live diagnostics -->
+    <string name="dbg_connected">Connected</string>
+    <string name="dbg_connecting">Connecting…</string>
+    <string name="dbg_bad_token">Wrong code</string>
+    <string name="dbg_disconnected">Disconnected (retries every 3 s)</string>
+    <string name="dbg_bt_yes">connected</string>
+    <string name="dbg_bt_no">NOT connected</string>
+    <string name="dbg_nodata">no data</string>
+    <string name="dbg_yes">yes</string>
+    <string name="dbg_no">no</string>
+    <string name="dbg_ago"> (%1$d s ago)</string>
+    <string name="dbg_phone_ip">Phone IP: %1$s   Port: %2$d</string>
+    <string name="dbg_stereo_ip">This stereo\'s IP: %1$s</string>
+    <string name="dbg_no_wifi">no WiFi</string>
+    <string name="dbg_state">Status: %1$s</string>
+    <string name="dbg_last_error">Last error: %1$s</string>
+    <string name="dbg_bt">Bluetooth (audio): %1$s</string>
+    <string name="dbg_sound">Sound on the stereo: %1$s</string>
+    <string name="dbg_sound_fix">Sound repair: %1$s</string>
+    <string name="dbg_last_message">Last message%1$s: %2$s</string>
+    <string name="wd_notice">No sound: notice %1$d sent to OfflineTune</string>
+    <string name="wd_opened_auto">No sound: opened the stereo\'s Android Auto</string>
+    <string name="wd_failed">No sound: couldn\'t fix it automatically</string>
+</resources>

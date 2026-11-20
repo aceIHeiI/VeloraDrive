@@ -1,5 +1,6 @@
 package com.iheii.veloradrive.video
 
+import com.iheii.veloradrive.LocaleActivity
 import kotlinx.serialization.json.JsonPrimitive
 import android.app.PictureInPictureParams
 import com.iheii.veloradrive.DriveOverlayService
@@ -84,7 +85,7 @@ import java.util.concurrent.TimeUnit
  * Vive en su propia tarea para que "Mini" (Picture-in-Picture) deje ver el launcher detrás.
  */
 @OptIn(UnstableApi::class)
-class VideoPlayerActivity : AppCompatActivity() {
+class VideoPlayerActivity : LocaleActivity() {
 
     private lateinit var b: ActivityVideoPlayerBinding
     @ColorInt private var accent = 0

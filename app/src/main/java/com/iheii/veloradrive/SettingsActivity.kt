@@ -64,7 +64,7 @@ import java.util.Locale
  * Ajustes a pantalla completa (reemplaza al antiguo diálogo). Cada cambio se guarda al momento; al
  * volver, MainActivity recibe el resultado y repinta lo que dependa de estos ajustes.
  */
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : LocaleActivity() {
 
     enum class Section(@param:StringRes val title: Int, @param:DrawableRes val icon: Int) {
         PHONE(R.string.aj_sec_phone, R.drawable.ic_set_phone),
@@ -388,6 +388,7 @@ class SettingsActivity : AppCompatActivity() {
         switchRow(R.string.aj_night, getString(R.string.aj_night_desc), CockpitPrefs.nightMode(this)) {
             CockpitPrefs.setNightMode(this, it)
         }
+        valueRow(R.string.aj_language, languageLabel(AppLanguage.get(this)), getString(R.string.aj_language_desc)) { pickLanguage() }
         switchRow(R.string.aj_idle_anim, getString(R.string.settings_idle_anim_hint), CockpitPrefs.idleAnimation(this)) {
             CockpitPrefs.setIdleAnimation(this, it)
         }
@@ -409,6 +410,23 @@ class SettingsActivity : AppCompatActivity() {
         valueRow(R.string.aj_model, profile.carModel ?: "--", getString(R.string.settings_car_model)) {
             editText(R.string.aj_model, profile.carModel.orEmpty(), InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS) {
                 saveProfile(profile.copy(carModel = it))
+            }
+        }
+    }
+
+    private fun languageLabel(lang: String) = when (lang) {
+        AppLanguage.ES -> "Español"
+        AppLanguage.EN -> "English"
+        else -> getString(R.string.aj_language_auto)
+    }
+
+    /** Idioma de la app: automático (el del sistema), Español o English. Se aplica al instante. */
+    private fun pickLanguage() {
+        val values = listOf(AppLanguage.AUTO, AppLanguage.ES, AppLanguage.EN)
+        choose(R.string.aj_language, values.map { languageLabel(it) }) { i ->
+            if (AppLanguage.get(this) != values[i]) {
+                AppLanguage.set(this, values[i])
+                recreate()
             }
         }
     }
@@ -648,33 +666,33 @@ class SettingsActivity : AppCompatActivity() {
     /** Datos para diagnosticar cuando algo falla con el celular. */
     private fun debugText(s: LinkUiState): String {
         val state = when (s.status) {
-            LinkStatus.CONNECTED -> "Conectado"
-            LinkStatus.CONNECTING -> "Conectando…"
-            LinkStatus.NO_TOKEN -> "Falta el código del celular"
-            LinkStatus.BAD_TOKEN -> "Código incorrecto"
-            LinkStatus.NO_WIFI -> "Sin red WiFi"
-            LinkStatus.DISCONNECTED -> "Desconectado (reintenta cada 3 s)"
+            LinkStatus.CONNECTED -> getString(R.string.dbg_connected)
+            LinkStatus.CONNECTING -> getString(R.string.dbg_connecting)
+            LinkStatus.NO_TOKEN -> getString(R.string.aj_status_no_token)
+            LinkStatus.BAD_TOKEN -> getString(R.string.dbg_bad_token)
+            LinkStatus.NO_WIFI -> getString(R.string.aj_status_no_wifi)
+            LinkStatus.DISCONNECTED -> getString(R.string.dbg_disconnected)
         }
         val bt = when (s.state?.btAudio) {
-            true -> "conectado"
-            false -> "NO conectado"
-            null -> "sin datos"
+            true -> getString(R.string.dbg_bt_yes)
+            false -> getString(R.string.dbg_bt_no)
+            null -> getString(R.string.dbg_nodata)
         }
         val sound = when (AudioWatchdog.sound.value) {
-            AudioWatchdog.Sound.YES -> "sí"
-            AudioWatchdog.Sound.NO -> "no"
-            AudioWatchdog.Sound.UNKNOWN -> "sin datos"
+            AudioWatchdog.Sound.YES -> getString(R.string.dbg_yes)
+            AudioWatchdog.Sound.NO -> getString(R.string.dbg_no)
+            AudioWatchdog.Sound.UNKNOWN -> getString(R.string.dbg_nodata)
         }
-        val ago = if (s.lastMessageAt > 0) " (hace ${(SystemClock.elapsedRealtime() - s.lastMessageAt) / 1000} s)" else ""
+        val ago = if (s.lastMessageAt > 0) getString(R.string.dbg_ago, (SystemClock.elapsedRealtime() - s.lastMessageAt) / 1000) else ""
         return buildString {
-            appendLine("IP del celular: ${s.host ?: "--"}   Puerto: ${s.port}")
-            appendLine("IP de este estéreo: ${stereoIp() ?: "sin WiFi"}")
-            appendLine("Estado: $state")
-            appendLine("Último error: ${s.lastError ?: "--"}")
-            appendLine("Bluetooth (audio): $bt")
-            appendLine("Sonido en el estéreo: $sound")
-            appendLine("Reparación de sonido: ${AudioWatchdog.lastAction.value ?: "--"}")
-            append("Último mensaje$ago: ${s.lastMessage?.take(120) ?: "--"}")
+            appendLine(getString(R.string.dbg_phone_ip, s.host ?: "--", s.port))
+            appendLine(getString(R.string.dbg_stereo_ip, stereoIp() ?: getString(R.string.dbg_no_wifi)))
+            appendLine(getString(R.string.dbg_state, state))
+            appendLine(getString(R.string.dbg_last_error, s.lastError ?: "--"))
+            appendLine(getString(R.string.dbg_bt, bt))
+            appendLine(getString(R.string.dbg_sound, sound))
+            appendLine(getString(R.string.dbg_sound_fix, AudioWatchdog.lastAction.value ?: "--"))
+            append(getString(R.string.dbg_last_message, ago, s.lastMessage?.take(120) ?: "--"))
         }
     }
 

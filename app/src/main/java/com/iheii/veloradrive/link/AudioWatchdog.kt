@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.os.SystemClock
+import com.iheii.veloradrive.R
 import com.iheii.veloradrive.CockpitPrefs
 import com.iheii.veloradrive.MainActivity
 import com.iheii.veloradrive.SlotStore
@@ -28,6 +29,9 @@ import kotlinx.serialization.json.JsonPrimitive
  * reporta bien su sonido.
  */
 object AudioWatchdog {
+    private fun str(app: Context, id: Int, vararg args: Any): String =
+        com.iheii.veloradrive.AppLanguage.wrap(app).getString(id, *args)
+
 
     enum class Sound { UNKNOWN, YES, NO }
 
@@ -125,14 +129,14 @@ object AudioWatchdog {
         when (steps) {
             0, 1 -> {
                 send("audio_kick", JsonPrimitive(steps + 1))
-                _lastAction.value = "Sin sonido: aviso ${steps + 1} a OfflineTune"
+                _lastAction.value = str(app, R.string.wd_notice, steps + 1)
             }
             2 -> {
                 if (now - openedAutoAt >= OPEN_AUTO_COOLDOWN_MS && openAndroidAuto(app)) {
                     openedAutoAt = now
-                    _lastAction.value = "Sin sonido: se abrió Android Auto del estéreo"
+                    _lastAction.value = str(app, R.string.wd_opened_auto)
                 } else {
-                    _lastAction.value = "Sin sonido: no se pudo reparar solo"
+                    _lastAction.value = str(app, R.string.wd_failed)
                 }
             }
             else -> return

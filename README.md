@@ -82,6 +82,8 @@ No hace falta cable: funciona igual con Android Auto inalámbrico o por cable.
   <img src="docs/06-principal-conectado.jpg" width="48%" alt="Conectado: canción, portada y progreso">
 </p>
 
+**Idioma:** Velora Drive viene en español e inglés. Por omisión sigue al idioma del sistema; en **Ajustes › Pantalla › Idioma** puedes elegir Automático, Español o English.
+
 **Video y burbuja:** mientras hay un video en pantalla completa o en la ventana mini, la burbuja de música se oculta para no tapar el video y vuelve al cerrarlo. La ventana mini trae anterior, pausa y siguiente, y el volumen del video se iguala con el de la música.
 
 **Qué puedes hacer desde el estéreo:** pausar, siguiente y anterior, volumen, elegir el preset de audio y encender o apagar el **Bass Boost**.

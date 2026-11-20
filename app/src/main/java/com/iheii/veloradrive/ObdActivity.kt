@@ -41,7 +41,7 @@ internal fun TextView.showText(s: CharSequence) {
  * (carga, acelerador, admisión, combustible y códigos de falla). Comparte la conexión de [ObdHub]
  * con la pantalla principal; solo redibuja cuando llega una lectura distinta.
  */
-class ObdActivity : AppCompatActivity() {
+class ObdActivity : LocaleActivity() {
 
     private lateinit var binding: ActivityObdBinding
     @ColorInt private var accent = 0

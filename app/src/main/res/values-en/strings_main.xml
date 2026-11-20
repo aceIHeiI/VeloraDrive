@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Main screen texts (info box, presets, kilometers). -->
+<resources>
+    <!-- Info box (top right) -->
+    <string name="info_prev">Previous</string>
+    <string name="info_next">Next</string>
+    <string name="info_trip_title">THIS TRIP</string>
+    <string name="info_fuel_title">SINCE FILL-UP</string>
+    <string name="info_total_title">TOTAL WITH VELORA</string>
+    <string name="info_phone_title">MY PHONE</string>
+    <string name="info_km">km</string>
+    <string name="info_hours">hours</string>
+    <string name="info_avg">avg km/h</string>
+    <string name="info_km_driven">km driven</string>
+    <string name="info_hours_driving">hours driving</string>
+    <string name="info_trip_foot">Starts when you turn on the car</string>
+    <string name="info_total_foot">Since you installed Velora</string>
+    <string name="info_fuel_today">You filled up today</string>
+    <string name="info_fuel_yesterday">You filled up yesterday</string>
+    <string name="info_fuel_days">You filled up %d days ago</string>
+    <string name="info_fuel_never">Mark it when you fill up</string>
+    <string name="info_fuel_button">I filled up</string>
+    <string name="info_fuel_confirm">Reset the count since the fill-up?</string>
+    <string name="info_fuel_reset">Reset</string>
+    <string name="info_no_gps">No location permission: km are not counted</string>
+    <string name="info_phone_connect">Connect OfflineTune Car</string>
+    <string name="info_phone_net">%1$s · %2$s</string>
+    <string name="info_phone_data">Data today: %s GB</string>
+    <string name="info_phone_charging">Charging</string>
+    <string name="info_phone_charging_min">Charging · %d min to 100%%</string>
+    <string name="info_phone_battery">%d%%</string>
+
+    <!-- Background kilometers (TripService) -->
+    <string name="trip_channel">Kilometers</string>
+    <string name="trip_notification">Velora is counting your kilometers</string>
+
+    <!-- Audio presets -->
+    <string name="presets_box_title">AUDIO PRESET</string>
+    <string name="presets_box_hint">Tap to see all</string>
+    <string name="presets_dialog_title">AUDIO PRESETS</string>
+    <string name="preset_none">—</string>
+    <string name="preset_legacy_bass">BASS</string>
+    <string name="bass_title">BASS BOOST</string>
+    <string name="bass_on">ON</string>
+    <string name="bass_off">OFF</string>
+    <string name="eq_normal">NORMAL</string>
+    <string name="eq_normal_sub">no changes</string>
+    <string name="eq_pop">POP</string>
+    <string name="eq_rock">ROCK</string>
+    <string name="eq_hiphop">HIP HOP</string>
+    <string name="eq_dance">DANCE</string>
+    <string name="eq_jazz">JAZZ</string>
+    <string name="eq_classical">CLASSICAL</string>
+    <string name="eq_heavymetal">HEAVY METAL</string>
+    <string name="eq_folk">FOLK</string>
+    <string name="eq_flat">FLAT</string>
+    <string name="eq_active">✓ active</string>
+    <string name="eq_stereo">Stereo equalizer</string>
+    <string name="eq_phone">The phone\'s</string>
+    <string name="eq_phone_toast">With OfflineTune connected, the phone produces the sound: pick a preset here or adjust the equalizer in OfflineTune.</string>
+</resources>

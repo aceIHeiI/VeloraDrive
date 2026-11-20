@@ -21,6 +21,10 @@ import androidx.core.content.ContextCompat
  */
 class TripService : Service() {
 
+    override fun attachBaseContext(newBase: android.content.Context) {
+        super.attachBaseContext(AppLanguage.wrap(newBase))
+    }
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {

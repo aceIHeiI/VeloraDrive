@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Library -->
+    <string name="video_title">VIDEOS</string>
+    <string name="video_search_hint">Search YouTube…</string>
+    <string name="video_tab_downloaded">DOWNLOADED</string>
+    <string name="video_tab_favorites">FAVORITES</string>
+    <string name="video_tab_playlists">LISTS</string>
+    <string name="video_tab_history">HISTORY</string>
+    <string name="video_tab_now">NOW PLAYING</string>
+    <string name="video_tab_back">LISTS ›</string>
+    <string name="video_downloaded">Downloaded</string>
+    <string name="video_online">Online</string>
+    <string name="video_playlist">List</string>
+    <plurals name="video_playlist_count">
+        <item quantity="one">%d video</item>
+        <item quantity="other">%d videos</item>
+    </plurals>
+    <string name="video_phone_default">Phone</string>
+    <string name="video_loading">Loading…</string>
+    <string name="video_empty">There are no videos here</string>
+    <string name="video_empty_search">No results</string>
+    <string name="video_search_title">Results: %s</string>
+    <string name="video_error_load">Couldn\'t load. Check the connection with the phone.</string>
+    <string name="video_error_disconnected">The phone is not connected.</string>
+    <string name="video_retry">Retry</string>
+
+    <!-- Player -->
+    <string name="video_from">From %1$s · %2$s</string>
+    <string name="video_quality_chip">Quality: %s</string>
+    <string name="video_quality_auto">Automatic</string>
+    <string name="video_quality_auto_short">Auto (%dp)</string>
+    <string name="video_quality_auto_plain">Auto</string>
+    <string name="video_height">%dp</string>
+    <string name="video_audio_only">Audio only</string>
+    <string name="video_mini">Mini</string>
+    <string name="video_audio_only_label">Audio only: the picture is off</string>
+    <string name="video_hidden_moving">Video hidden while moving · audio continues</string>
+    <string name="video_error_play">Couldn\'t play the video.</string>
+    <string name="video_error_no_quality">This stereo can\'t play any quality of this video.</string>
+    <string name="video_no_pip">This stereo doesn\'t allow the mini window</string>
+    <string name="video_rewind">Back 10 s</string>
+    <string name="video_forward">Forward 10 s</string>
+    <string name="video_prev">Previous video</string>
+    <string name="video_next">Next video</string>
+    <string name="video_play_pause">Play or pause</string>
+
+    <!-- Safety notice (once) -->
+    <string name="video_warning_title">Don\'t watch videos while driving</string>
+    <string name="video_warning_msg">Video is for passengers or when the car is stopped. The driver is responsible for their driving.</string>
+    <string name="video_warning_ok">Got it</string>
+
+    <!-- Settings › Video -->
+    <string name="aj_video_auto_max">Automatic quality up to</string>
+    <string name="aj_video_auto_max_desc">Automatic quality doesn\'t go above this limit</string>
+    <string name="aj_video_auto_max_no1080">This stereo can\'t decode 1080p: it stays at 720p</string>
+    <string name="aj_video_hide_moving">Hide video while moving</string>
+    <string name="aj_video_hide_moving_desc">Above 10 km/h the picture is hidden and the audio continues (uses GPS)</string>
+    <string name="aj_video_warning_reset">Show the notice again</string>
+    <string name="aj_video_warning_reset_desc">The safety notice appears again before the next video</string>
+    <string name="aj_video_warning_reset_done">The notice will appear again</string>
+</resources>

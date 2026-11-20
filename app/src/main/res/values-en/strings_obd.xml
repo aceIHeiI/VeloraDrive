@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OBD2 card and screen texts. -->
+<resources>
+    <!-- Main screen card -->
+    <string name="obd_card_name">OBD2</string>
+    <string name="obd_card_connected">CONNECTED</string>
+    <string name="obd_card_demo">DEMO MODE</string>
+    <string name="obd_unit_rpm">RPM</string>
+    <string name="obd_unit_kmh">km/h</string>
+    <string name="obd_unit_motor">°C engine</string>
+    <string name="obd_unit_battery">V battery</string>
+    <string name="obd_open">Open OBD2</string>
+
+    <!-- OBD2 screen -->
+    <string name="obd_screen_title">OBD2</string>
+    <string name="obd_pill_connected">CONNECTED · ELM327 Bluetooth</string>
+    <string name="obd_pill_low_voltage">CONNECTED · Engine off</string>
+    <string name="obd_pill_demo">DEMO MODE</string>
+    <string name="obd_pill_waiting">Waiting for connection</string>
+    <string name="obd_pill_off">OBD2 turned off</string>
+    <string name="obd_refresh">Updates every 1 s</string>
+
+    <string name="obd_gauge_rpm">RPM</string>
+    <string name="obd_gauge_speed">KM/H</string>
+    <string name="obd_gauge_coolant">ENGINE TEMP.</string>
+    <string name="obd_gauge_volts">BATTERY VOLTS</string>
+    <string name="obd_red_zone">RED ZONE %1$s</string>
+    <string name="obd_gps_speed">GPS: %1$d KM/H</string>
+    <string name="obd_temp_normal">NORMAL</string>
+    <string name="obd_temp_hot">HOT</string>
+    <string name="obd_batt_charging">CHARGING</string>
+    <string name="obd_batt_rest">AT REST</string>
+    <string name="obd_batt_low">LOW</string>
+    <string name="obd_batt_high">HIGH</string>
+
+    <string name="obd_load">ENGINE LOAD</string>
+    <string name="obd_throttle">THROTTLE</string>
+    <string name="obd_intake">INTAKE TEMP.</string>
+    <string name="obd_fuel">FUEL</string>
+    <string name="obd_dtc">FAULT CODES</string>
+    <string name="obd_unit_pct" formatted="false">%</string>
+    <string name="obd_unit_celsius">°C</string>
+
+    <string name="obd_dtc_none">No faults</string>
+    <string name="obd_dtc_unread">Not read</string>
+    <string name="obd_dtc_reading">Reading…</string>
+    <string name="obd_dtc_hint">Tap to check again</string>
+    <plurals name="obd_dtc_found">
+        <item quantity="one">%1$d fault</item>
+        <item quantity="other">%1$d faults</item>
+    </plurals>
+</resources>

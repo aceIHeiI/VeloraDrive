@@ -59,6 +59,9 @@
     <string name="aj_music_app">App de música</string>
 
     <!-- Pantalla -->
+    <string name="aj_language">Idioma</string>
+    <string name="aj_language_desc">Automático sigue al idioma del sistema</string>
+    <string name="aj_language_auto">Automático</string>
     <string name="aj_night">Modo noche</string>
     <string name="aj_night_desc">Baja el brillo de Velora (no cambia el brillo del sistema)</string>
     <string name="aj_idle_anim">Animar las montañas de sonido</string>
@@ -98,4 +101,27 @@
     <string name="aj_export_desc">Crea un archivo de texto para enviarlo. No incluye el código ni la contraseña</string>
     <string name="aj_export_failed">No se pudo crear el archivo</string>
     <string name="aj_export_chooser">Enviar diagnóstico</string>
+    <!-- Diagnóstico en vivo -->
+    <string name="dbg_connected">Conectado</string>
+    <string name="dbg_connecting">Conectando…</string>
+    <string name="dbg_bad_token">Código incorrecto</string>
+    <string name="dbg_disconnected">Desconectado (reintenta cada 3 s)</string>
+    <string name="dbg_bt_yes">conectado</string>
+    <string name="dbg_bt_no">NO conectado</string>
+    <string name="dbg_nodata">sin datos</string>
+    <string name="dbg_yes">sí</string>
+    <string name="dbg_no">no</string>
+    <string name="dbg_ago"> (hace %1$d s)</string>
+    <string name="dbg_phone_ip">IP del celular: %1$s   Puerto: %2$d</string>
+    <string name="dbg_stereo_ip">IP de este estéreo: %1$s</string>
+    <string name="dbg_no_wifi">sin WiFi</string>
+    <string name="dbg_state">Estado: %1$s</string>
+    <string name="dbg_last_error">Último error: %1$s</string>
+    <string name="dbg_bt">Bluetooth (audio): %1$s</string>
+    <string name="dbg_sound">Sonido en el estéreo: %1$s</string>
+    <string name="dbg_sound_fix">Reparación de sonido: %1$s</string>
+    <string name="dbg_last_message">Último mensaje%1$s: %2$s</string>
+    <string name="wd_notice">Sin sonido: aviso %1$d a OfflineTune</string>
+    <string name="wd_opened_auto">Sin sonido: se abrió Android Auto del estéreo</string>
+    <string name="wd_failed">Sin sonido: no se pudo reparar solo</string>
 </resources>

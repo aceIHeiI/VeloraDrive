@@ -1,0 +1,179 @@
+<resources>
+    <string name="app_name">Velora Drive</string>
+    <string name="apps">Apps</string>
+    <string name="all_apps">All apps</string>
+
+    <!-- Quick buttons -->
+    <string name="slot_apps">Apps</string>
+    <string name="slot_camera">Other app</string>
+    <string name="slot_video">Video</string>
+    <string name="slot_music">Music</string>
+    <string name="slot_radio">FM Radio</string>
+    <string name="slot_nav">Navigation</string>
+    <string name="slot_eq">DSP Equalizer</string>
+    <string name="slot_default">Default</string>
+    <string name="projection">Car Sync</string>
+    <string name="projection_missing">No link app</string>
+    <string name="projection_toast">I couldn\'t find ZLink, TLink, CarLink or SpeedPlay. Press and hold CAR SYNC to choose the app.</string>
+    <string name="car_sync_start">CAR SYNC\n/ START</string>
+
+    <!-- Media -->
+    <string name="cover">Cover</string>
+    <string name="no_media_title">Nothing playing</string>
+    <string name="media_waiting">Waiting for connection...</string>
+    <string name="status_idle">Nothing playing</string>
+    <string name="status_playing">Playing</string>
+    <string name="status_paused">Paused</string>
+    <string name="media_access_title">Turn on cover and song</string>
+    <string name="media_access_artist">Tap here and allow access</string>
+    <string name="prev">Previous</string>
+    <string name="next">Next</string>
+    <string name="play_pause">Play or pause</string>
+    <string name="mute">Mute</string>
+
+    <!-- Telemetry -->
+    <string name="kmh">km/h</string>
+    <string name="kmh_upper">KM/H</string>
+    <string name="car">Car</string>
+    <string name="obd_wait">OBD2…</string>
+    <string name="tpms_wait">%1$s: -- PSI</string>
+    <string name="tpms_value">%1$s: %2$d PSI</string>
+    <string name="battery_desc">Car battery</string>
+    <string name="map_hint">Illustrative mini map: tap to open navigation</string>
+    <string name="low_voltage">Low voltage: OBD2 reading paused</string>
+
+    <!-- Tuning -->
+    <string name="tune_title">TUNING / AUDIO</string>
+    <string name="volume_label">VOLUME</string>
+    <string name="bass_label">BASS / SUBWOOFER</string>
+    <string name="bass_unsupported">BASS (not supported)</string>
+    <string name="ecul_dsp">EQ\nDSP</string>
+
+    <!-- Colors -->
+    <string name="theme_cyan">Neon Cyan</string>
+    <string name="theme_red">Racing Red</string>
+    <string name="theme_orange">Sport Orange</string>
+    <string name="theme_lime">Acid Green</string>
+    <string name="theme_purple">Cyber Purple</string>
+    <string name="theme_amber">Amber</string>
+    <string name="fire_lava">Lava</string>
+    <string name="fire_plasma">Blue plasma</string>
+    <string name="fire_emerald">Emerald</string>
+    <string name="fire_cyber">Cyber</string>
+    <string name="fire_blood">Crimson</string>
+    <string name="fire_gold">Gold</string>
+    <string name="fire_sync">Same as the cockpit</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="settings_title">Velora Drive settings</string>
+    <string name="settings_color">Cockpit color</string>
+    <string name="settings_fire">Screensaver fire color</string>
+    <string name="settings_obd">Enable OBD2 reading (ELM327 Bluetooth)</string>
+    <string name="settings_obd_hint">Without OBD2: heading, altitude and speed from GPS. With OBD2: real RPM, voltage and temperature.</string>
+    <string name="settings_obd_device">Choose paired ELM327 scanner</string>
+    <string name="settings_obd_none">No paired Bluetooth devices</string>
+    <string name="settings_tpms">Enable TPMS monitor</string>
+    <string name="settings_tpms_hint">Requires TPMS sensors; without them it shows -- PSI.</string>
+    <string name="settings_lights">Headlight lighting mode</string>
+    <string name="lights_ill">Automatic by ILL wire / system</string>
+    <string name="lights_schedule">Automatic by schedule (%1$s to %2$s)</string>
+    <string name="lights_manual">Manual by double tap on the car</string>
+    <string name="settings_lights_on">Turn-on time</string>
+    <string name="settings_lights_off">Turn-off time</string>
+    <string name="settings_car">Car image</string>
+    <string name="settings_car_pick">Photo from the gallery</string>
+    <string name="settings_car_reset">Drawn car</string>
+    <string name="settings_car_versa">Versa 2018 (photo)</string>
+    <string name="settings_car_saved">Photo saved (%1$d KB)</string>
+    <string name="settings_idle">Screensaver when idle</string>
+    <string name="idle_never">Never</string>
+    <string name="idle_minutes">%1$d min</string>
+    <string name="close">Close</string>
+    <string name="settings_idle_anim">Animate the sound mountains without music</string>
+    <string name="settings_idle_anim_hint" formatted="false">Off: without music they stay still and the CPU drops to 0%.</string>
+    <string name="clock_desc">Digital clock</string>
+    <string name="brand_desc">Brand logo</string>
+    <string name="settings_profile">Your phone and your car</string>
+    <string name="settings_device_name">Device name</string>
+    <string name="settings_car_brand">Car brand</string>
+    <string name="settings_car_brand_other">Type the brand</string>
+    <string name="settings_brand_other">Other</string>
+    <string name="settings_car_model">Model (optional)</string>
+    <string name="device_default">My phone</string>
+    <string name="brand_default">VELORA</string>
+    <string name="mobile_direct">DIRECT MOBILE CONNECTION</string>
+    <string name="obd2_title">OBD2 •</string>
+    <string name="obd_waiting">Waiting for connection...</string>
+    <string name="obd_connected">Connected</string>
+    <string name="source_line">%1$s • %2$s</string>
+    <string name="volume">Volume</string>
+    <string name="slot_bt_music">Stereo Bluetooth music</string>
+    <string name="bt_wake">Turn on the stereo Bluetooth audio when connecting</string>
+    <string name="bt_wake_hint">Briefly opens the stereo\'s BT Music app and returns here, so the phone\'s music plays and doesn\'t pause.</string>
+    <string name="bt_wake_pick">Choose the BT Music app</string>
+    <string name="mode_map_full">Full map</string>
+    <string name="overlay_projection">Player over Android Auto</string>
+    <string name="overlay_projection_hint">When you open CAR SYNC / START a round button appears on the right; tap it to see the player without leaving Android Auto. It goes away by itself when you return to Velora.</string>
+    <string name="mode_split">Split</string>
+    <string name="mode_half">50/50</string>
+    <string name="mode_music_full">Full music</string>
+    <string name="mini_source">Change source</string>
+    <string name="mini_stereo">Stereo</string>
+    <string name="percent">%1$d%%</string>
+    <string name="drive_channel">Split mode</string>
+    <string name="drive_running">Mini player over the map</string>
+    <string name="overlay_permission">To see the player next to the map, allow Velora Drive to appear over other apps.</string>
+    <string name="overlay_permission_go">Allow</string>
+    <string name="bt_warning">Connect Bluetooth to hear the audio</string>
+    <string name="link_waiting">Waiting for connection...</string>
+    <string name="link_reconnecting">Reconnecting...</string>
+    <string name="link_section">Connection with OfflineTune</string>
+    <string name="link_token">Phone code (4 to 6 digits)</string>
+    <string name="link_ssid">Phone hotspot (network name)</string>
+    <string name="link_password">Hotspot password</string>
+    <string name="link_host">Manual IP (optional, for diagnostics)</string>
+    <string name="link_hint">In OfflineTune: Settings › Playback › Car connection. Type here the code shown there.</string>
+    <string name="audio_fix">Fix Android Auto sound</string>
+    <string name="audio_fix_hint">If OfflineTune is playing but the stereo stays silent, Velora asks it to reopen the sound and, if needed, briefly opens Android Auto and comes back.</string>
+    <string name="link_debug">Debug</string>
+    <string name="link_volume_title">Phone volume</string>
+    <string name="settings_brand">Brand emblem (center)</string>
+    <string name="settings_emblem">Emblem shape</string>
+    <string name="emblem_ring">Ring + bar</string>
+    <string name="emblem_oval">Oval</string>
+    <string name="emblem_shield">Shield</string>
+    <string name="emblem_hex">Hexagon</string>
+    <string name="emblem_bowtie">Bowtie</string>
+    <string name="quick_settings">QUICK SETTINGS</string>
+    <string name="day">DAY</string>
+    <string name="night">NIGHT</string>
+    <string name="mute_upper">MUTE</string>
+    <string name="preset_rock">ROCK</string>
+    <string name="preset_pop">POP</string>
+    <string name="preset_bass">BASS</string>
+    <string name="preset_flat">FLAT</string>
+    <string name="preset_unsupported">Your stereo doesn\'t allow changing the equalizer from another app. Use EQ/DSP.</string>
+    <string name="headlights">Headlights</string>
+    <string name="coords">LATITUDE: %1$s\nLONGITUDE: %2$s</string>
+
+    <!-- App picker / drawer -->
+    <string name="search">Search app…</string>
+    <string name="search_open">Search</string>
+    <string name="search_close">Close search</string>
+    <string name="no_results">No results</string>
+    <string name="not_found">There is no app installed for this</string>
+    <string name="back">Back</string>
+    <string name="hint_info">Press and hold an app to see its info or uninstall it</string>
+    <string name="pick_app_for">%1$s button: choose app</string>
+    <string name="use_default">↺  Use default</string>
+    <string name="cancel">Cancel</string>
+    <string name="presets_title">AUDIO PRESETS</string>
+    <string name="nav_gps">NAVIGATION / GPS</string>
+    <string name="slot_settings">Settings</string>
+    <string name="car_sync_line">CAR SYNC / START</string>
+    <string name="prev_label">PREVIOUS</string>
+    <string name="next_label">NEXT</string>
+    <string name="eq_dsp">EQ / DSP</string>
+    <string name="time_zero">0:00</string>
+</resources>

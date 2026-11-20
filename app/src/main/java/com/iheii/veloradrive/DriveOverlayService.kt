@@ -53,6 +53,10 @@ import java.util.Locale
  */
 class DriveOverlayService : Service() {
 
+    override fun attachBaseContext(newBase: android.content.Context) {
+        super.attachBaseContext(AppLanguage.wrap(newBase))
+    }
+
     enum class Mode(val fraction: Float) { SPLIT(0.35f), HALF(0.5f), MAP(0f) }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)

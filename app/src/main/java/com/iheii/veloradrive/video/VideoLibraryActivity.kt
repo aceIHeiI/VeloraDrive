@@ -1,5 +1,6 @@
 package com.iheii.veloradrive.video
 
+import com.iheii.veloradrive.LocaleActivity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -48,7 +49,7 @@ import java.util.Locale
  * lo que suena en el celular), búsqueda en YouTube por el celular y cuadrícula de 4 columnas.
  * Se abre desde el botón VIDEO cuando el celular está conectado.
  */
-class VideoLibraryActivity : AppCompatActivity() {
+class VideoLibraryActivity : LocaleActivity() {
 
     private enum class Tab(val key: String, @param:StringRes val title: Int) {
         DOWNLOADED("downloaded", R.string.video_tab_downloaded),

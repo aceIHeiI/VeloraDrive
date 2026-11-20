@@ -1,6 +1,7 @@
 ## Velora Drive v1.0.3
 
 ### Nuevo
+- **Velora Drive ya está en inglés.** Sigue al idioma del sistema, y en **Ajustes › Pantalla › Idioma** puedes elegir **Automático**, **Español** o **English** (se aplica al instante).
 - **Código del celular de 4 a 6 dígitos:** los códigos nuevos de OfflineTune Car son de 6 dígitos; los de 4 que ya tenías siguen funcionando. Si el celular rechaza el código, Velora lo avisa y solo reintenta cada 70 segundos, para no bloquearse sola (el celular bloquea tras 5 intentos fallidos).
 - **La burbuja de música se oculta mientras hay un video** en pantalla completa o en la ventana mini, y vuelve al cerrarlo. Antes quedaba encima del video.
 - **La ventana mini del video trae anterior, pausa y siguiente.**

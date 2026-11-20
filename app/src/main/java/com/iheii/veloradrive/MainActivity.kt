@@ -77,7 +77,7 @@ import kotlin.math.roundToInt
  * El launcher NO pide foco de audio a propósito: pedir AUDIOFOCUS_GAIN haría que Spotify o
  * Android Auto pausen la música cada vez que se vuelve al inicio.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : LocaleActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var audio: AudioManager
