@@ -118,8 +118,10 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         loop = scope.launch {
             while (isActive) {
                 connectOnce()
-                // Reconexión automática cada 3 s si se cae la red o el celular.
-                delay(RETRY_MS)
+                // Reconexión automática cada 3 s si se cae la red o el celular. Con un código que el celular
+                // rechazó se espera mucho más: el celular bloquea tras 5 intentos fallidos y no hay que
+                // bloquearse solo; al cambiar el código el lazo se reinicia al instante (setConfig).
+                delay(if (_ui.value.status == LinkStatus.BAD_TOKEN) BAD_TOKEN_RETRY_MS else RETRY_MS)
             }
         }
     }
@@ -470,6 +472,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         private const val SCAN_CONNECT_MS = 350
         private const val SCAN_READ_MS = 1_200
         const val RETRY_MS = 3_000L
+        const val BAD_TOKEN_RETRY_MS = 70_000L
         const val PING_TIMEOUT_MS = 30_000L
         const val DISCOVERY_WAIT_MS = 1_500
         private const val NET_SETTLE_MS = 3_000L
