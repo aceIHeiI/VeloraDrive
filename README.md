@@ -31,7 +31,7 @@
 
 ## ⬇️ Instalación
 
-1. Ve a **[Releases](https://github.com/aceIHeiI/VeloraDrive/releases/latest)** y descarga el `.apk` (`VeloraDrive-1.0.2.apk`).
+1. Ve a **[Releases](https://github.com/aceIHeiI/VeloraDrive/releases/latest)** y descarga el `.apk` (`VeloraDrive-1.0.3.apk`).
 2. Instálalo en tu estéreo (puede pedir permitir apps de fuentes desconocidas).
 3. Pulsa el botón de inicio y elige **Velora Drive** como launcher.
 4. Para usar la música y el video de tu celular, sigue **Conectar con tu celular**, aquí abajo.
@@ -81,6 +81,8 @@ No hace falta cable: funciona igual con Android Auto inalámbrico o por cable.
   <img src="docs/03-esperando-conexion.jpg" width="48%" alt="Esperando conexión">
   <img src="docs/06-principal-conectado.jpg" width="48%" alt="Conectado: canción, portada y progreso">
 </p>
+
+**Video y burbuja:** mientras hay un video en pantalla completa o en la ventana mini, la burbuja de música se oculta para no tapar el video y vuelve al cerrarlo. La ventana mini trae anterior, pausa y siguiente, y el volumen del video se iguala con el de la música.
 
 **Qué puedes hacer desde el estéreo:** pausar, siguiente y anterior, volumen, elegir el preset de audio y encender o apagar el **Bass Boost**.
 
