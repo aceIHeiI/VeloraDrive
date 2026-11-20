@@ -70,11 +70,11 @@ No hace falta cable: funciona igual con Android Auto inalámbrico o por cable.
 
 <p align="center">
   <img src="docs/01-celular-ajustes-conexion.jpg" width="30%" alt="En el celular: Ajustes › Reproducción › Conexión con el coche">
-  <img src="docs/04-escribir-codigo.jpg" width="60%" alt="En el estéreo: escribir el código de 4 dígitos">
+  <img src="docs/04-escribir-codigo.jpg" width="60%" alt="En el estéreo: escribir el código del celular">
 </p>
 
-1. En el celular abre OfflineTune Car → **Ajustes › Reproducción › Conexión con el coche**. Con el interruptor encendido verás un **código de 4 dígitos**.
-2. En el estéreo abre Velora Drive → **Ajustes › Celular** → **Código de 4 dígitos** y escríbelo.
+1. En el celular abre OfflineTune Car → **Ajustes › Reproducción › Conexión con el coche**. Con el interruptor encendido verás un **código** (los nuevos son de 6 dígitos; los de 4 que ya tenías siguen valiendo).
+2. En el estéreo abre Velora Drive → **Ajustes › Celular** → **Código del celular** y escríbelo. Si te equivocas 5 veces, el celular espera un minuto o más antes de aceptar otro intento.
 3. Velora lo busca solo en la red. Cuando diga **Conectado**, ya está.
 
 <p align="center">
