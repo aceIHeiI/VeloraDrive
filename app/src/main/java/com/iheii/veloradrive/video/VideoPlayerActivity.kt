@@ -292,8 +292,9 @@ class VideoPlayerActivity : AppCompatActivity() {
             )
         }
         hideError()
-        // Que no suenen dos cosas: la música del celular se pausa antes de empezar.
-        PhoneLinkHub.send(this, "pause")
+        // Que no suenen dos cosas: la música del celular se pausa antes de empezar. Si el video lo mandó el
+        // celular, ya la calló él; mandar "pause" ahora pausaría el propio video del coche.
+        if (!fromPhone) PhoneLinkHub.send(this, "pause")
         p.setMediaSource(source, posMs)
         p.prepare()
         p.playWhenReady = true

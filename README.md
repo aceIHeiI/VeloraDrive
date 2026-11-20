@@ -47,7 +47,14 @@ Manda un video de tu celular al estéreo y se abre **encima de Android Auto**. C
   <img src="docs/15-celular-ver-en-el-coche.jpg" width="25%" alt="En el celular: botón Ver en el coche">
 </p>
 
-Pasos: en el celular abre un video en OfflineTune Car y toca **Ver en el coche**; en el estéreo toca **Mini** para dejarlo flotando sobre Android Auto. Configuración en la sección de abajo.
+Pasos: en el celular abre un video en OfflineTune Car y toca **Ver en el coche**; en el estéreo toca **Mini** para dejarlo flotando sobre Android Auto.
+
+Para que el video llegue con Android Auto a pantalla completa, abre Android Auto **desde Velora**:
+1. En **Ajustes › Celular**, enciende **Reproductor mini encima de Android Auto**.
+2. Mantén pulsado **CAR SYNC / START** y elige la app de Android Auto de tu estéreo (ZLink, TLink…).
+3. Abre Android Auto siempre con ese botón: aparece la burbuja con la nota musical y, mientras esté ahí, Velora mantiene viva la conexión con el celular. Si abres Android Auto por otro lado, Velora cierra la conexión a los pocos segundos y el video no llega.
+
+No hace falta cable: funciona igual con Android Auto inalámbrico o por cable.
 
 ⚠️ Ve videos solo con el coche detenido.
 
