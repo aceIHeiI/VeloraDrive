@@ -650,7 +650,7 @@ class SettingsActivity : AppCompatActivity() {
         val state = when (s.status) {
             LinkStatus.CONNECTED -> "Conectado"
             LinkStatus.CONNECTING -> "Conectando…"
-            LinkStatus.NO_TOKEN -> "Falta el código de 4 dígitos"
+            LinkStatus.NO_TOKEN -> "Falta el código del celular"
             LinkStatus.BAD_TOKEN -> "Código incorrecto"
             LinkStatus.NO_WIFI -> "Sin red WiFi"
             LinkStatus.DISCONNECTED -> "Desconectado (reintenta cada 3 s)"
@@ -680,7 +680,7 @@ class SettingsActivity : AppCompatActivity() {
 
     /**
      * Archivo .txt con versión, equipo, líneas de depuración y resumen de ajustes, enviado con el menú
-     * de compartir de Android. Nunca incluye el código de 4 dígitos ni la contraseña del hotspot.
+     * de compartir de Android. Nunca incluye el código del celular ni la contraseña del hotspot.
      */
     private fun exportDiagnostics() {
         val text = scrub(buildDiagnostics())
