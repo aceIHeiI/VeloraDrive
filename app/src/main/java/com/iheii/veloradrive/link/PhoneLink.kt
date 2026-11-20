@@ -265,7 +265,14 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
      * Si nadie respondió por UDP: se revisa cada dirección de la red del estéreo (de 64 en 64) en el
      * puerto 8080, preguntando por /hello. Solo OfflineTune Car responde "HERE"; tarda 1 o 2 s.
      */
+    /** Cuándo terminó el último escaneo sin éxito: no se repite más de una vez por minuto. */
+    @Volatile private var lastScanAt = 0L
+
     private suspend fun scan(): Pair<String, Int>? = kotlinx.coroutines.coroutineScope {
+        // Revisar 254 direcciones cada pocos segundos gasta red y batería del estéreo: tras un intento
+        // fallido se espera un minuto (el UDP y la última IP buena se siguen probando en cada ciclo).
+        val now = android.os.SystemClock.elapsedRealtime()
+        if (lastScanAt != 0L && now - lastScanAt < SCAN_COOLDOWN_MS) return@coroutineScope null
         val own = localIpv4()
         val hosts = own.map { it.substringBeforeLast('.') }.distinct()
             .flatMap { base -> (1..254).map { "$base.$it" } }
@@ -274,8 +281,9 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
             val found = chunk.map { ip ->
                 async(Dispatchers.IO) { ip.takeIf { isPhone(it, CarProtocol.PORT) } }
             }.awaitAll().firstOrNull { it != null }
-            if (found != null) return@coroutineScope found to CarProtocol.PORT
+            if (found != null) { lastScanAt = 0L; return@coroutineScope found to CarProtocol.PORT }
         }
+        lastScanAt = android.os.SystemClock.elapsedRealtime()
         null
     }
 
@@ -458,6 +466,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
         private const val NOT_FOUND_EXTRA_MS = 3_000L
         private const val REACH_TIMEOUT_MS = 1_200
         private const val SCAN_PARALLEL = 64
+        private const val SCAN_COOLDOWN_MS = 60_000L
         private const val SCAN_CONNECT_MS = 350
         private const val SCAN_READ_MS = 1_200
         const val RETRY_MS = 3_000L
