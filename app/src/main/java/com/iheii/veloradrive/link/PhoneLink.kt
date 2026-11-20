@@ -85,7 +85,7 @@ class PhoneLink(context: Context, private val scope: CoroutineScope) {
     private val _ui = MutableStateFlow(LinkUiState())
     val ui: StateFlow<LinkUiState> = _ui
 
-    private val _videoPlay = MutableSharedFlow<CarVideoPlay>(extraBufferCapacity = 1)
+    private val _videoPlay = MutableSharedFlow<CarVideoPlay>(extraBufferCapacity = 4)
     /** "Ver en el coche" desde el celular (mensaje video_play). */
     val videoPlay: SharedFlow<CarVideoPlay> = _videoPlay
 
