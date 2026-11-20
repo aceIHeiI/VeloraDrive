@@ -21,8 +21,8 @@ android {
         applicationId = "com.iheii.veloradrive"
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         ndk {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a")
