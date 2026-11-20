@@ -236,10 +236,12 @@ class SettingsActivity : AppCompatActivity() {
         }
         renderStatusCard()
 
-        // Código de 4 dígitos: cuatro casillas con puntos (nunca se muestra el número).
+        // Código del celular (4 dígitos los antiguos, 6 los nuevos): casillas con puntos (nunca se muestra el número).
         row(R.string.aj_code, getString(R.string.aj_code_desc)).apply {
             val digits = linkConfig.token.orEmpty().length
-            repeat(4) { i ->
+            // Con un código antiguo de 4 dígitos se dibujan 4 casillas; sin código o con uno nuevo, 6.
+            val boxes = if (digits in 1..4) 4 else 6
+            repeat(boxes) { i ->
                 end.addView(TextView(this@SettingsActivity).apply {
                     text = if (i < digits) "•" else ""
                     textSize = 22f
@@ -249,7 +251,7 @@ class SettingsActivity : AppCompatActivity() {
                 }, LinearLayout.LayoutParams(px(46), px(52)).apply { marginStart = px(8) })
             }
             main.setOnClickListener {
-                editText(R.string.aj_code, "", InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD, 4) {
+                editText(R.string.aj_code, "", InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD, 6) {
                     saveLink(linkConfig.copy(token = it))
                 }
             }
@@ -726,7 +728,7 @@ class SettingsActivity : AppCompatActivity() {
             appendLine(debugText(s))
             appendLine()
             appendLine("== Ajustes ==")
-            appendLine("Código de 4 dígitos: ${if (linkConfig.token.isNullOrEmpty()) "sin configurar" else "configurado"}")
+            appendLine("Código del celular: ${if (linkConfig.token.isNullOrEmpty()) "sin configurar" else "configurado"}")
             appendLine("Hotspot: ${linkConfig.ssid ?: "--"}")
             appendLine("Contraseña del hotspot: ${if (linkConfig.password.isNullOrEmpty()) "sin configurar" else "configurada"}")
             appendLine("IP manual: ${linkConfig.host ?: "--"}")

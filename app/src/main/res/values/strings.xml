@@ -129,7 +129,7 @@
     <string name="link_waiting">Esperando conexión...</string>
     <string name="link_reconnecting">Reconectando...</string>
     <string name="link_section">Conexión con OfflineTune</string>
-    <string name="link_token">Código de 4 dígitos del celular</string>
+    <string name="link_token">Código del celular (4 a 6 dígitos)</string>
     <string name="link_ssid">Hotspot del celular (nombre de la red)</string>
     <string name="link_password">Contraseña del hotspot</string>
     <string name="link_host">IP manual (opcional, para diagnóstico)</string>
