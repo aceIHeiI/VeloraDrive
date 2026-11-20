@@ -85,7 +85,8 @@ class DriveOverlayService : Service() {
         b = OverlayPlayerBinding.inflate(LayoutInflater.from(themed))
         setupButtons()
         tint()
-        wm.addView(b.root, params())
+        live = java.lang.ref.WeakReference(this)
+        attachWindow()
         PhoneLinkHub.acquire(this)
         scope.launch { PhoneLinkHub.ui(this@DriveOverlayService).collect { remote = it; render() } }
         startLocalMedia()
@@ -99,7 +100,8 @@ class DriveOverlayService : Service() {
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        runCatching { wm.removeView(b.root) }
+        detachWindow()
+        if (live?.get() === this) live = null
         PhoneLinkHub.release(this)
         stopLocalMedia()
         scope.cancel()
@@ -148,7 +150,28 @@ class DriveOverlayService : Service() {
         mode = m
         b.panel.visibility = if (m == Mode.MAP) View.GONE else View.VISIBLE
         b.pill.visibility = if (m == Mode.MAP) View.VISIBLE else View.GONE
-        runCatching { wm.updateViewLayout(b.root, params()) }
+        if (attached) runCatching { wm.updateViewLayout(b.root, params()) }
+    }
+
+    /**
+     * Mientras el video de Velora está a la vista (pantalla completa o ventana mini) la burbuja se quita:
+     * una ventana flotante siempre queda encima del video y no se puede poner detrás. Vuelve al cerrar el video.
+     */
+    private var attached = false
+
+    private fun attachWindow() {
+        if (attached || videoShown) return
+        runCatching { wm.addView(b.root, params()); attached = true }
+    }
+
+    private fun detachWindow() {
+        if (!attached) return
+        runCatching { wm.removeView(b.root) }
+        attached = false
+    }
+
+    private fun applyVideoVisibility() {
+        handler.post { if (videoShown) detachWindow() else attachWindow() }
     }
 
     // ------------------------------------------------------------------ controles
@@ -166,18 +189,18 @@ class DriveOverlayService : Service() {
         }
         b.play.setOnClickListener {
             tap(it)
-            if (remote.connected) PhoneLinkHub.send(this, "toggle")
+            if (showingRemote()) { if (remote.connected) PhoneLinkHub.send(this, "toggle") }
             else local?.let { c -> if (c.playbackState?.state == PlaybackState.STATE_PLAYING) c.transportControls.pause() else c.transportControls.play() }
                 ?: mediaKey(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE)
         }
         b.next.setOnClickListener {
             tap(it)
-            if (remote.connected) PhoneLinkHub.send(this, "next")
+            if (showingRemote()) { if (remote.connected) PhoneLinkHub.send(this, "next") }
             else local?.transportControls?.skipToNext() ?: mediaKey(KeyEvent.KEYCODE_MEDIA_NEXT)
         }
         b.prev.setOnClickListener {
             tap(it)
-            if (remote.connected) PhoneLinkHub.send(this, "previous")
+            if (showingRemote()) { if (remote.connected) PhoneLinkHub.send(this, "previous") }
             else local?.transportControls?.skipToPrevious() ?: mediaKey(KeyEvent.KEYCODE_MEDIA_PREVIOUS)
         }
         b.volume.setOnSeekBarChangeListener(object : android.widget.SeekBar.OnSeekBarChangeListener {
@@ -364,7 +387,8 @@ class DriveOverlayService : Service() {
             showProgress((st.positionSec + elapsed).coerceIn(0, st.durationSec.coerceAtLeast(0)), st.durationSec)
             showPlaying(remote.connected && st.isPlaying)
             if (remote.connected && st.isPlaying) handler.postDelayed(tick, 1_000L)
-            enableControls(true)
+            // "Reconectando": se ve lo último del celular, pero los botones esperan a que vuelva la conexión.
+            enableControls(remote.connected)
         } else {
             val c = local
             val meta = c?.metadata
@@ -483,6 +507,16 @@ class DriveOverlayService : Service() {
         private const val KEY_PILL_X = "pill_x"
         private const val KEY_PILL_Y = "pill_y"
         private const val PILL_DP = 72
+
+        @Volatile private var videoShown = false
+        @Volatile private var live: java.lang.ref.WeakReference<DriveOverlayService>? = null
+
+        /** El reproductor de video de Velora está a la vista (pantalla completa o mini): oculta la burbuja. */
+        fun setVideoShown(shown: Boolean) {
+            if (videoShown == shown) return
+            videoShown = shown
+            live?.get()?.applyVideoVisibility()
+        }
 
         fun canShow(context: Context) = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context)
 

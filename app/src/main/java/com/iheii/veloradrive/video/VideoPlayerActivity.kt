@@ -2,6 +2,13 @@ package com.iheii.veloradrive.video
 
 import kotlinx.serialization.json.JsonPrimitive
 import android.app.PictureInPictureParams
+import com.iheii.veloradrive.DriveOverlayService
+import androidx.core.content.ContextCompat
+import android.graphics.drawable.Icon
+import android.content.IntentFilter
+import android.content.BroadcastReceiver
+import android.app.RemoteAction
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -120,6 +127,11 @@ class VideoPlayerActivity : AppCompatActivity() {
         styleControls()
         setupControls()
         createPlayer()
+        ContextCompat.registerReceiver(
+            this, pipReceiver,
+            IntentFilter().apply { addAction(ACTION_PIP_PREV); addAction(ACTION_PIP_PLAY); addAction(ACTION_PIP_NEXT) },
+            ContextCompat.RECEIVER_NOT_EXPORTED,
+        )
 
         lifecycleScope.launch {
             val p = runCatching { ProfileStore.flow(this@VideoPlayerActivity).first() }.getOrNull()
@@ -138,6 +150,8 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        // La burbuja se oculta mientras el video está a la vista (pantalla completa o ventana mini).
+        DriveOverlayService.setVideoShown(true)
         PhoneLinkHub.acquire(this)
         if (VideoPrefs.hideWhileMoving(this) && TripTracker.hasPermission(this)) {
             TripTracker.addListener(tripListener)
@@ -163,6 +177,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         handler.removeCallbacks(positionTick)
         // El video se cerró a propósito: el celular ya no debe ofrecer "Seguir viendo en el celular".
         PhoneLinkHub.send(this, "video_stop")
+        DriveOverlayService.setVideoShown(false)
         if (tripActive) {
             tripActive = false
             TripTracker.removeListener(tripListener)
@@ -174,6 +189,8 @@ class VideoPlayerActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (instance?.get() === this) instance = null
+        DriveOverlayService.setVideoShown(false)
+        runCatching { unregisterReceiver(pipReceiver) }
         handler.removeCallbacksAndMessages(null)
         loadJob?.cancel()
         player?.release()
@@ -324,7 +341,17 @@ class VideoPlayerActivity : AppCompatActivity() {
     }
 
     private fun createPlayer() {
-        val renderers = DefaultRenderersFactory(this).setEnableDecoderFallback(true)
+        // El audio pasa por VideoLoudness: mismo nivel que la música normalizada de OfflineTune.
+        val renderers = object : DefaultRenderersFactory(this) {
+            override fun buildAudioSink(
+                context: Context, enableFloatOutput: Boolean, enableAudioTrackPlaybackParams: Boolean,
+            ): androidx.media3.exoplayer.audio.AudioSink =
+                androidx.media3.exoplayer.audio.DefaultAudioSink.Builder(context)
+                    .setEnableFloatOutput(enableFloatOutput)
+                    .setEnableAudioTrackPlaybackParams(enableAudioTrackPlaybackParams)
+                    .setAudioProcessors(arrayOf(VideoLoudness()))
+                    .build()
+        }.setEnableDecoderFallback(true)
         val load = DefaultLoadControl.Builder()
             .setBufferDurationsMs(15_000, 40_000, 1_500, 3_000)
             .build()
@@ -357,6 +384,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             com.iheii.veloradrive.link.AudioWatchdog.videoPlaying = isPlaying
             b.btnPlay.setImageResource(if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play)
+            if (isInPictureInPictureMode) runCatching { setPictureInPictureParams(pipParams()) }
             if (isPlaying) scheduleHide() else showControls()
         }
 
@@ -422,7 +450,8 @@ class VideoPlayerActivity : AppCompatActivity() {
         b.btnPlay.setOnClickListener {
             val p = player ?: return@setOnClickListener
             if (p.isPlaying) p.pause() else {
-                PhoneLinkHub.send(this, "pause")
+                // Calla la música del celular; si el video lo mandó el celular, ya está callada (y "pause" iría al video).
+                if (!fromPhone) PhoneLinkHub.send(this, "pause")
                 if (p.playbackState == Player.STATE_ENDED) p.seekTo(0)
                 if (p.playbackState == Player.STATE_IDLE) rebuild() else p.play()
             }
@@ -688,10 +717,37 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     // ---------------------------------------------------------------- Mini (Picture-in-Picture)
 
+    /** La ventana mini lleva sus propios botones: anterior, pausa/reproducir y siguiente. */
+    private fun pipParams(): PictureInPictureParams {
+        fun action(icon: Int, title: String, code: Int, name: String) = RemoteAction(
+            Icon.createWithResource(this, icon), title, title,
+            PendingIntent.getBroadcast(this, code, Intent(name).setPackage(packageName), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT),
+        )
+        val playing = player?.isPlaying == true
+        return PictureInPictureParams.Builder()
+            .setAspectRatio(videoAspect)
+            .setActions(listOf(
+                action(R.drawable.ic_prev, "Anterior", 1, ACTION_PIP_PREV),
+                action(if (playing) R.drawable.ic_pause else R.drawable.ic_play, if (playing) "Pausa" else "Reproducir", 2, ACTION_PIP_PLAY),
+                action(R.drawable.ic_next, "Siguiente", 3, ACTION_PIP_NEXT),
+            ))
+            .build()
+    }
+
+    private val pipReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.action) {
+                ACTION_PIP_PREV -> b.btnPrev.performClick()
+                ACTION_PIP_PLAY -> b.btnPlay.performClick()
+                ACTION_PIP_NEXT -> b.btnNext.performClick()
+            }
+        }
+    }
+
     private fun enterMini() {
         hideQualityMenu()
         val ok = packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE) && runCatching {
-            enterPictureInPictureMode(PictureInPictureParams.Builder().setAspectRatio(videoAspect).build())
+            enterPictureInPictureMode(pipParams())
         }.getOrDefault(false)
         if (!ok) Toast.makeText(this, R.string.video_no_pip, Toast.LENGTH_SHORT).show()
     }
@@ -735,6 +791,9 @@ class VideoPlayerActivity : AppCompatActivity() {
                 }
             }
         }
+        private const val ACTION_PIP_PREV = "com.iheii.veloradrive.PIP_PREV"
+        private const val ACTION_PIP_PLAY = "com.iheii.veloradrive.PIP_PLAY"
+        private const val ACTION_PIP_NEXT = "com.iheii.veloradrive.PIP_NEXT"
         private const val SEEK_MS = 10_000L
         private const val SEEK_MAX = 1000
         private const val HIDE_MS = 4_000L
