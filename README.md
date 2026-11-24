@@ -2,7 +2,7 @@
 
 > **Complemento opcional de [OfflineTune](https://github.com/aceIHeiI/OfflineTune)**, la app principal (reproductor de música para el celular). Velora Drive es solo el launcher que va en el **estéreo Android del coche**. Si lo que buscas es escuchar tu música sin internet en el celular, descarga OfflineTune.
 
-**Velora Drive** es un launcher (pantalla de inicio) para estéreos Android de coche, pensado para pantallas de 7", 9" y 10" (1024×600). Junta en una sola pantalla lo que usas manejando: lo que suena, tus apps, la radio, el video, los medidores del coche y el audio.
+**Velora Drive** es un launcher (pantalla de inicio) para estéreos Android de coche, pensado para pantallas de 7", 9" y 10" (1024×600). Junta en una sola pantalla lo que usas en el coche: lo que suena, tus apps, la radio, el video, los medidores del coche y el audio.
 
 <p align="center">
   <img src="docs/01-principal.png" width="80%" alt="Pantalla principal de Velora Drive">
@@ -56,7 +56,7 @@ Para que el video llegue con Android Auto a pantalla completa, abre Android Auto
 
 No hace falta cable: funciona igual con Android Auto inalámbrico o por cable.
 
-⚠️ Ve videos solo con el coche detenido.
+> ℹ️ **Sobre el uso del video:** la función está pensada para **pasajeros o con el coche estacionado**. Velora no bloquea el video por velocidad. Hay un ajuste opcional, **Ajustes › Video › Ocultar video en movimiento**, que por encima de 10 km/h oculta la imagen y deja el audio, usando el GPS. Cada persona es responsable del uso que le da.
 
 ## 📲 Conectar con tu celular (OfflineTune Car)
 
@@ -140,7 +140,7 @@ Velora Drive no tiene cuentas ni anuncios y **no envía datos a ningún servidor
 
 ## ⚠️ Importante
 
-- **No mires video ni uses el estéreo manejando.** La función de video es para cuando el coche está detenido. Usa Velora con responsabilidad y respeta las leyes de tu país.
+- **Responsabilidad del usuario.** Velora Drive es una herramienta y funciona como se describe aquí, incluido el video en movimiento (puedes limitarlo con *Ocultar video en movimiento*). El video está pensado para pasajeros o con el coche detenido. El conductor es el único responsable de cómo la usa y de cumplir las leyes de su país. Esta app se distribuye solo por GitHub.
 - Los medidores OBD2 son informativos: no sustituyen el tablero de tu coche ni un diagnóstico mecánico.
 - Probado en estéreos Android chinos de 1024×600. Si en el tuyo algo falla, ve a **Ajustes › Diagnóstico**, copia el resultado y abre un Issue.
 
